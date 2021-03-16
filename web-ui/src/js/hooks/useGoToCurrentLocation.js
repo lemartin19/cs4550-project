@@ -23,10 +23,7 @@ const goToCurrentLocation = ({ map, infoWindow }) => {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        window.infoWindow.setPosition(pos);
-        window.infoWindow.setContent('Location found.');
-        window.infoWindow.open(map);
-        window.map.setCenter(pos);
+        map.setCenter(pos);
       },
       () => {
         handleLocationError(map, true, infoWindow, map.getCenter());
