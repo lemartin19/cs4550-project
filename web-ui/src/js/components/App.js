@@ -1,12 +1,12 @@
 'use es6';
 
-import React, { Component } from 'react';
-import '../../css/App.css';
+import React from 'react';
+import Map from './Map';
 
-class App extends Component {
-  render() {
-    return <div className="App"></div>;
-  }
-}
+const App = () => (
+  <div className="App vh-100">
+    <Map />
+  </div>
+);
 
 export default App;

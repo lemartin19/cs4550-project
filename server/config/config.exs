@@ -18,6 +18,11 @@ config :project, ProjectWeb.Endpoint,
   pubsub_server: Project.PubSub,
   live_view: [signing_salt: "vwoGGCkW"]
 
+config :cors_plug,
+  origins: ["http://localhost:3000", "project.seablue.site"],
+  max_age: 86400,
+  methods: ["GET", "POST"]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
