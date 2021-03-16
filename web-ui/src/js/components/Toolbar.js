@@ -1,16 +1,8 @@
 'use es6';
 
-import { useGoToCurrentLocation } from '../hooks/useGoToCurrentLocation';
-
+// TODO: this will be the toolbar for the map settings etc.
 const Toolbar = () => {
-  const { goToCurrentLocation } = useGoToCurrentLocation();
-  return (
-    <div className="Toolbar">
-      <button className="btn btn-primary" onClick={goToCurrentLocation}>
-        Current Location
-      </button>
-    </div>
-  );
+  return null;
 };
 Toolbar.displayName = 'Toolbar';
 

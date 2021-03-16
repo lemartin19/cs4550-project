@@ -23,9 +23,9 @@ const useInitMap = () => {
       const infoWindow = new google.maps.InfoWindow();
       
       const currentLocationButton = document.createElement('button');
-      currentLocationButton.id = "go-to-current-location";
+      currentLocationButton.id = 'go-to-current-location';
       currentLocationButton.textContent = 'Pan to Current Location';
-      currentLocationButton.classList.add('custom-map-control-button');
+      currentLocationButton.classList.add('custom-map-control-button', 'btn', 'btn-primary', 'mt-2');
       map.controls[google.maps.ControlPosition.TOP_CENTER].push(currentLocationButton);
 
       window.initMapCallback({ map, infoWindow });

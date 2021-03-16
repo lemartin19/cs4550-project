@@ -8,5 +8,6 @@ const App = () => (
     <Map />
   </div>
 );
+App.displayName = 'App';
 
 export default App;
