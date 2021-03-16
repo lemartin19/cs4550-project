@@ -69,6 +69,9 @@ defmodule ProjectWeb do
       import ProjectWeb.ErrorHelpers
       import ProjectWeb.Gettext
       alias ProjectWeb.Router.Helpers, as: Routes
+
+      import Application,
+        only: [get_env: 3]
     end
   end
 

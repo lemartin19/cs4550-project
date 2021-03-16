@@ -4,6 +4,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    let map;
+
+    function initMap() {
+      console.log("init map");
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -34.397, lng: 150.644 },
+        zoom: 8,
+      });
+    }
+  </script>
   <!--
       Notice the use of %PUBLIC_URL% in the tag above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -17,7 +28,15 @@
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="map" style="height: 500px;" ></div>
+  <div id="root" class="h-100">
+  </div>
+  
+  <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAA8OS03M6dxV859lJuJQDn7S0GLnV_L78&callback=initMap&libraries=&v=weekly"
+    async
+  ></script>
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

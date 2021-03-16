@@ -16,7 +16,7 @@ defmodule ProjectWeb.Router do
   scope "/", ProjectWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/map", PageController, :map
   end
 
   # Other scopes may use custom stacks.
