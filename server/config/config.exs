@@ -12,16 +12,11 @@ config :project,
 
 # Configures the endpoint
 config :project, ProjectWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "project-api.seablue.site"],
   secret_key_base: "CdiIN6E4G0SRYn3PqSrawfrkRx7hrSJLTlmS/zw8LefXhvTXP9Xp4QbZ+udgfxqZ",
   render_errors: [view: ProjectWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Project.PubSub,
   live_view: [signing_salt: "vwoGGCkW"]
-
-config :cors_plug,
-  origins: ["http://localhost:3000", "project.seablue.site"],
-  max_age: 86400,
-  methods: ["GET", "POST"]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -13,16 +13,11 @@ defmodule ProjectWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ProjectWeb do
-    pipe_through :browser
+  scope "/api/v1", ProjectWeb do
+    pipe_through :api
 
-    get "/map", PageController, :map
+    resources "/route", RouteController, only: [:show]
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", ProjectWeb do
-  #   pipe_through :api
-  # end
 
   # Enables LiveDashboard only for development
   #
