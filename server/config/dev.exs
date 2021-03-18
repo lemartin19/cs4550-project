@@ -19,8 +19,8 @@ config :project, ProjectWeb.Endpoint,
   https: [
     port: 4000,
     cipher_suite: :strong,
-    certfile: "/etc/letsencrypt/live/seablue.site/fullchain.pem",
-    keyfile: "/etc/letsencrypt/live/seablue.site/privkey.pem"
+    certfile: Path.expand("/etc/letsencrypt/live/seablue.site/fullchain.pem", __DIR__),
+    keyfile: Path.expand("/etc/letsencrypt/live/seablue.site/privkey.pem", __DIR__)
   ],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   debug_errors: true,
@@ -29,7 +29,7 @@ config :project, ProjectWeb.Endpoint,
   watchers: []
 
 config :cors_plug,
-  origins: ["https://localhost:3000", "https://project.seablue.site"],
+  # origins: ["https://localhost:3000", "https://project.seablue.site"],
   max_age: 86400,
   methods: ["GET", "POST"]
 

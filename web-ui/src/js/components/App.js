@@ -1,7 +1,8 @@
 'use es6';
 
 import React from 'react';
-import { Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Directions from './Directions';
 import Map from './Map';
 
 const App = () => (

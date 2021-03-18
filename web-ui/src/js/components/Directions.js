@@ -1,6 +1,6 @@
 'use es6';
 
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Directions = () => {
   const [response, setResponse] = useState('');
@@ -11,7 +11,7 @@ const Directions = () => {
       .catch((err) => console.log(err));
   });
 
-  return <p>{response}</p>;
+  return <div className="m-4">response: {response}</div>;
 };
 Directions.displayName = 'Directions';
 
