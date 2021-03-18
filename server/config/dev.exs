@@ -29,7 +29,7 @@ config :project, ProjectWeb.Endpoint,
   watchers: []
 
 config :cors_plug,
-  origins: ["http://localhost:3000", "project.seablue.site"],
+  origins: ["https://localhost:3000", "https://project.seablue.site"],
   max_age: 86400,
   methods: ["GET", "POST"]
 

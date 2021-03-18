@@ -1,11 +1,19 @@
 'use es6';
 
 import React from 'react';
+import { Router, Route } from 'react-router-dom';
 import Map from './Map';
 
 const App = () => (
   <div className="App vh-100">
-    <Map />
+    <Router>
+      <Route path="/map">
+        <Map />
+      </Route>
+      <Route path="/test-api">
+        <Directions />
+      </Route>
+    </Router>
   </div>
 );
 App.displayName = 'App';
