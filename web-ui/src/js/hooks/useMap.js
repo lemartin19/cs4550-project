@@ -32,7 +32,7 @@ const useInitMap = () => {
       currentLocationButton.classList.add('custom-map-control-button', 'btn', 'btn-primary', 'mt-2');
       map.controls[google.maps.ControlPosition.TOP_CENTER].push(currentLocationButton);
 
-      window.initMapCallback({ map, infoWindow, directionsRenderer });
+      window.initMapCallback({ map, infoWindow, directionsRenderer, currentLocationButton });
     }`;
 
     document.body.appendChild(googleMapsScript);

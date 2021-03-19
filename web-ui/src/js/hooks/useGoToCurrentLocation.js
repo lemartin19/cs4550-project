@@ -1,6 +1,6 @@
 'use es6';
 
-import { useMemo } from 'react';
+import { useEffect } from 'react';
 
 const handleLocationError = (map, browserHasGeolocation, infoWindow, pos) => {
   infoWindow.setPosition(pos);
@@ -35,17 +35,22 @@ const goToCurrentLocation = ({ map, infoWindow }) => {
   }
 };
 
-export const useGoToCurrentLocation = ({ map, infoWindow }) => {
-  useMemo(() => {
+export const useGoToCurrentLocation = ({
+  map,
+  infoWindow,
+  currentLocationButton,
+}) => {
+  useEffect(() => {
     goToCurrentLocation({ map, infoWindow });
-    const currentLocationButton = document.getElementById(
-      'go-to-current-location'
-    );
+  }, [map, infoWindow]);
 
+  useEffect(() => {
     if (currentLocationButton) {
       currentLocationButton.addEventListener('click', () =>
         goToCurrentLocation({ map, infoWindow })
       );
     }
-  }, [map, infoWindow]);
+  }, [map, infoWindow, currentLocationButton]);
+
+  return { goToCurrentLocation };
 };
