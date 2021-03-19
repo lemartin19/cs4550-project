@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useInitMap } from './useInitMap';
-import { useMarkers } from './useMarkers';
 import { useDirections } from './useDirections';
 import { useGoToCurrentLocation } from './useGoToCurrentLocation';
 
@@ -17,7 +16,6 @@ export const useMap = () => {
   }, []);
 
   useInitMap();
-  useMarkers(mapObjects);
   useDirections(mapObjects);
   useGoToCurrentLocation(mapObjects);
 };

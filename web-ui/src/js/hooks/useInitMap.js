@@ -1,5 +1,7 @@
 'use es6';
 
+import { useEffect } from 'react';
+
 /* global google */
 
 const initMap = () => {
@@ -9,7 +11,9 @@ const initMap = () => {
     streetViewControl: false,
   });
   const infoWindow = new google.maps.InfoWindow();
-  const directionsRenderer = new google.maps.DirectionsRenderer();
+  const directionsRenderer = new google.maps.DirectionsRenderer({
+    suppressMarkers: true,
+  });
   directionsRenderer.setMap(map);
 
   const currentLocationButton = document.createElement('button');

@@ -6,11 +6,15 @@ export const fetchRoute = () =>
     .then(({ data }) => data)
     .catch((err) => console.log(err));
 
-export const postMarker = (markerLocation) =>
-  fetch('https://project-api.seablue.site/api/v1/routes/1', {
+export const postMarker = (points) => {
+  return fetch('https://project-api.seablue.site/api/v1/routes/1/add_marker', {
     method: 'POST',
-    body: JSON.stringify(markerLocation),
+    body: JSON.stringify({ points }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
   })
     .then((response) => response.json())
     .then(({ data }) => data)
     .catch((err) => console.log(err));
+};
