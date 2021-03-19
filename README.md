@@ -7,7 +7,7 @@ Web development project creating a running route planner with saveable routes.
 Based on the amount of time in the project, the below stages of development are provided.
 
 - [x] Initialize the Google Maps API and show a map on the web page.
-- [ ] Allow route creation (walking only) on the map.
+- [X] Allow route creation (walking only) on the map.
 - [x] Use browser location services to initialize the map to a relevant starting region.
 - [ ] Require user login.
 - [ ] Allow saving of a route and a page for a user to view their existing routes.
