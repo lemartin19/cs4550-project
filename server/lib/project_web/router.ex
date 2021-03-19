@@ -16,7 +16,7 @@ defmodule ProjectWeb.Router do
   scope "/api/v1", ProjectWeb do
     pipe_through :api
 
-    resources "/route", RouteController, only: [:show]
+    resources "/routes", RouteController, only: [:show]
   end
 
   # Enables LiveDashboard only for development

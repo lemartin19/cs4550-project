@@ -20,10 +20,9 @@ config :project, ProjectWeb.Endpoint,
   https: [
     port: 4001,
     cipher_suite: :strong,
-    certfile: Path.expand("/etc/letsencrypt/live/seablue.site/fullchain.pem", __DIR__),
-    keyfile: Path.expand("/etc/letsencrypt/live/seablue.site/privkey.pem", __DIR__)
+    certfile: Path.expand("/etc/letsencrypt/live/seablue.site-0001/fullchain.pem", __DIR__),
+    keyfile: Path.expand("/etc/letsencrypt/live/seablue.site-0001/privkey.pem", __DIR__)
   ],
-  # force_ssl: [rewrite_on: [:x_forwarded_proto]],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,

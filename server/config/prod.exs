@@ -21,7 +21,7 @@ config :project, ProjectWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 config :cors_plug,
-  origins: ["project.seablue.site"],
+  origins: ["https://project.seablue.site"],
   max_age: 86400,
   methods: ["GET", "POST"]
 
