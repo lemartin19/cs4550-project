@@ -6,7 +6,7 @@ const useInitMap = () => {
   useEffect(() => {
     const googleMapsScript = document.createElement('script');
     googleMapsScript.src =
-      'https://maps.googleapis.com/maps/api/js?key=AIzaSyAA8OS03M6dxV859lJuJQDn7S0GLnV_L78&callback=initMap';
+      'https://maps.googleapis.com/maps/api/js?key=AIzaSyAA8OS03M6dxV859lJuJQDn7S0GLnV_L78&libraries=geometry&callback=initMap';
     googleMapsScript.async = true;
 
     const initMapScript = document.createElement('script');
