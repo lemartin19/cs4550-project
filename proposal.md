@@ -84,8 +84,9 @@ Success
 
 ### What did you try?
 
-Connecting to the Directions API on the backend and displaying the
-route on the frontend map.
+Connecting to the Directions API on the backend, creating a
+route on the frontend that can be sent to the backend for
+the API request and displayed fully on the frontend.
 
 ### What was the result?
 
@@ -96,3 +97,4 @@ Success
 - How to make a directions request on the backend
 - How to translate directions response from JSON to renderer
 - How to render the directions request on the map
+- How to add click events to the map
