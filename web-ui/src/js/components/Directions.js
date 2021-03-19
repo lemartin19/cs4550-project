@@ -6,7 +6,7 @@ const Directions = () => {
   const [response, setResponse] = useState('');
 
   useEffect(() => {
-    fetch('https://project-api.seablue.site/api/v1/route/1', {})
+    fetch('http://project-api.seablue.site/api/v1/route/1', {})
       .then(setResponse)
       .catch((err) => console.log(err));
   });

@@ -16,20 +16,21 @@ config :project, Project.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :project, ProjectWeb.Endpoint,
+  http: [port: 4000],
   https: [
-    port: 4000,
+    port: 4001,
     cipher_suite: :strong,
     certfile: Path.expand("/etc/letsencrypt/live/seablue.site/fullchain.pem", __DIR__),
     keyfile: Path.expand("/etc/letsencrypt/live/seablue.site/privkey.pem", __DIR__)
   ],
-  force_ssl: [rewrite_on: [:x_forwarded_proto]],
+  # force_ssl: [rewrite_on: [:x_forwarded_proto]],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
   watchers: []
 
 config :cors_plug,
-  # origins: ["https://localhost:3000", "https://project.seablue.site"],
+  origins: ["https://localhost:3000", "https://project.seablue.site"],
   max_age: 86400,
   methods: ["GET", "POST"]
 
