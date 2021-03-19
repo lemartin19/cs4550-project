@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useGoToCurrentLocation } from './useGoToCurrentLocation';
 
 const useInitMap = () => {
@@ -38,14 +38,20 @@ const useInitMap = () => {
     return () => {
       document.body.removeChild(googleMapsScript);
       document.body.removeChild(initMapScript);
-
-      window.map = undefined;
-      window.infoWindow = undefined;
     };
   }, []);
 };
 
 export const useMap = () => {
+  const [mapObjects, setMapObjects] = useState({});
+
+  useEffect(() => {
+    window.initMapCallback = setMapObjects;
+    return () => {
+      window.initMapCallback = undefined;
+    };
+  }, []);
+
   useInitMap();
-  useGoToCurrentLocation();
+  useGoToCurrentLocation(mapObjects);
 };
