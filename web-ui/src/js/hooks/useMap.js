@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDirections } from './useDirections';
 import { useGoToCurrentLocation } from './useGoToCurrentLocation';
 
 const useInitMap = () => {
@@ -22,6 +23,8 @@ const useInitMap = () => {
         streetViewControl: false,
       });
       const infoWindow = new google.maps.InfoWindow();
+      const directionsRenderer = new google.maps.DirectionsRenderer();
+      directionsRenderer.setMap(map);
       
       const currentLocationButton = document.createElement('button');
       currentLocationButton.id = 'go-to-current-location';
@@ -29,7 +32,7 @@ const useInitMap = () => {
       currentLocationButton.classList.add('custom-map-control-button', 'btn', 'btn-primary', 'mt-2');
       map.controls[google.maps.ControlPosition.TOP_CENTER].push(currentLocationButton);
 
-      window.initMapCallback({ map, infoWindow });
+      window.initMapCallback({ map, infoWindow, directionsRenderer });
     }`;
 
     document.body.appendChild(googleMapsScript);
@@ -53,5 +56,6 @@ export const useMap = () => {
   }, []);
 
   useInitMap();
+  useDirections(mapObjects);
   useGoToCurrentLocation(mapObjects);
 };
