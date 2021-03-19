@@ -6,10 +6,9 @@ defmodule ProjectWeb.RouteController do
   require Logger
 
   def show(conn, %{"id" => _id}) do
-    Logger.debug("********** fdjskklfjdkslj")
     start = "30.199009,-97.888534"
     finish = "30.197706,-97.880373"
     route = DirectionsApi.fetch_directions(start, finish, [])
-    render(conn, "show.json", route: route)
+    render(conn, "show.json", %{route: route})
   end
 end
