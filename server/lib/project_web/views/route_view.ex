@@ -1,14 +1,13 @@
 defmodule ProjectWeb.RouteView do
   use ProjectWeb, :view
 
+  require Logger
+
   def render("show.json", %{route: route}) do
-    %{data: render_one(route, RouteView, "route.json")}
+    %{data: render_one(route, ProjectWeb.RouteView, "route.json")}
   end
 
   def render("route.json", %{route: route}) do
-    %{
-      id: route.id,
-      directions: route.directions
-    }
+    Jason.encode!(route)
   end
 end
