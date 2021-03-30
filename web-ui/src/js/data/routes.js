@@ -1,6 +1,6 @@
 'use es6';
 
-import { createReducer } from '@reduxjs/toolkit';
+import { createReducer } from 'redux';
 import { apiFetch } from './api';
 
 const FETCH_ROUTE = 'FETCH_ROUTE';
@@ -16,11 +16,11 @@ export const postMarker = (points) =>
     JSON.stringify({ points })
   );
 
-export const routeReducer = createReducer(
+export const routesReducer = createReducer(
   {},
   {
     [FETCH_ROUTE]: (state, { payload }) => {
-      return payload;
+      return Object.assign({}, state, { [payload.id]: payload });
     },
     [ADD_MARKER]: () => {
       return null;

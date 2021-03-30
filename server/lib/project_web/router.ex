@@ -18,6 +18,7 @@ defmodule ProjectWeb.Router do
 
     post "/routes/:id/add_marker", RouteController, :add_marker
     resources "/routes", RouteController, only: [:show]
+    resources "/users", UserController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
