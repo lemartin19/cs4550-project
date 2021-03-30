@@ -1,6 +1,6 @@
 'use es6';
 
-import { createReducer } from 'redux';
+import { createReducer } from '@reduxjs/toolkit';
 import { apiFetch } from './api';
 
 const FETCH_ROUTE = 'FETCH_ROUTE';

@@ -3,8 +3,8 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { LOCAL_STORAGE_REDIRECT } from '../config';
-import { postLogin } from '../data/session';
+import { LOCAL_STORAGE_REDIRECT } from '../constants/config';
+import { postLogin } from '../data/login';
 import { useQueryParams } from './useQueryParams';
 
 export const useLogin = () => {

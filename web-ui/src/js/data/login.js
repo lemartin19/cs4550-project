@@ -2,7 +2,8 @@
 
 import { createReducer } from '@reduxjs/toolkit';
 import { LOCAL_STORAGE_SESSION_KEY } from '../constants/config';
-import { CREATE_USER } from './users';
+import { apiFetch } from './api';
+// import { CREATE_USER } from './users';
 
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
@@ -49,10 +50,10 @@ export const sessionReducer = createReducer(loadSession(), {
     saveSession(null);
     return null;
   },
-  [CREATE_USER]: (state, { payload }) => {
-    saveSession(payload);
-    return payload;
-  },
+  // [CREATE_USER]: (state, { payload }) => {
+  //   saveSession(payload);
+  //   return payload;
+  // },
 });
 
 export const getSession = (state) => state.session;
