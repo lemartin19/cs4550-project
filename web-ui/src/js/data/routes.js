@@ -1,20 +1,31 @@
 'use es6';
 
-export const fetchRoute = () =>
-  fetch('https://project-api.seablue.site/api/v1/routes/1')
-    .then((response) => response.json())
-    .then(({ data }) => data)
-    .catch((err) => console.log(err));
+import { createReducer } from '@reduxjs/toolkit';
+import { apiFetch } from './api';
 
-export const postMarker = (points) => {
-  return fetch('https://project-api.seablue.site/api/v1/routes/1/add_marker', {
-    method: 'POST',
-    body: JSON.stringify({ points }),
-    headers: {
-      'Content-Type': 'application/json',
+const FETCH_ROUTE = 'FETCH_ROUTE';
+const ADD_MARKER = 'ADD_MARKER';
+
+export const fetchRoute = () => apiFetch(`/routes/1`, FETCH_ROUTE);
+
+export const postMarker = (points) =>
+  apiFetch(
+    `/routes/1/add_marker`,
+    ADD_MARKER,
+    'POST',
+    JSON.stringify({ points })
+  );
+
+export const routeReducer = createReducer(
+  {},
+  {
+    [FETCH_ROUTE]: (state, { payload }) => {
+      return payload;
     },
-  })
-    .then((response) => response.json())
-    .then(({ data }) => data)
-    .catch((err) => console.log(err));
-};
+    [ADD_MARKER]: () => {
+      return null;
+    },
+  }
+);
+
+export const getRoutes = (state) => state.routes;
