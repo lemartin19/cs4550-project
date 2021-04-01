@@ -1,6 +1,6 @@
 'use es6';
 
-const API_BASE = 'https://project-api.seablue.site/api/v1';
+const API_BASE = 'https://project.seablue.site/api/v1';
 
 export const apiFetch = (path, type, method, body) =>
   fetch(`${API_BASE}${path}`, {

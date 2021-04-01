@@ -12,7 +12,7 @@ config :project,
 
 # Configures the endpoint
 config :project, ProjectWeb.Endpoint,
-  url: [host: "project-api.seablue.site"],
+  url: [host: "localhost"],
   secret_key_base: "CdiIN6E4G0SRYn3PqSrawfrkRx7hrSJLTlmS/zw8LefXhvTXP9Xp4QbZ+udgfxqZ",
   render_errors: [view: ProjectWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Project.PubSub,
@@ -25,6 +25,11 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+config :cors_plug,
+  origin: ["https://project.seablue.site"],
+  max_age: 86400,
+  methods: ["GET", "POST"]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
