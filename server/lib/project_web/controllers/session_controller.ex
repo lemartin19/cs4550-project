@@ -1,8 +1,10 @@
 defmodule ProjectWeb.SessionController do
   use ProjectWeb, :controller
 
+  alias Project.Users
+
   def create(conn, %{"email" => email, "password" => password}) do
-    user = Project.Users.authenticate(email, password)
+    user = Users.authenticate(email, password)
 
     if user do
       session = %{
