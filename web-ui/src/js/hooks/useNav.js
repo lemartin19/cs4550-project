@@ -3,7 +3,7 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getCurrentUserName, postLogout } from '../data/session';
+import { getCurrentUserName, postLogout } from '../data/login';
 
 export const useNav = () => {
   const history = useHistory();
