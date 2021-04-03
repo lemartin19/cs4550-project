@@ -9,12 +9,13 @@ Based on the amount of time in the project, the below stages of development are 
 - [x] Initialize the Google Maps API and show a map on the web page.
 - [X] Allow route creation (walking only) on the map.
 - [x] Use browser location services to initialize the map to a relevant starting region.
-- [ ] Require user login.
+- [X] Require user login.
 - [ ] Allow saving of a route and a page for a user to view their existing routes.
-- [ ] Allow copying/editing of a route.
 - [ ] Add descriptions/notes on routes.
 - [ ] View of user's routes with name.
 - [ ] Make route feed to view routes of other users.
+- [ ] Add sockets with "Users on route"
+- [ ] Allow copying/editing of a route.
 
 Additional goals as time allows:
 
