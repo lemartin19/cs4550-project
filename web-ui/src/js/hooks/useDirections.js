@@ -1,20 +1,22 @@
 'use es6';
 
 import { useEffect, useState, useRef } from 'react';
-// import { fetchRoute } from '../data/routes';
+import { useSelector } from 'react-redux';
+import { getSessionToken } from '../data/login';
 import { postMarker } from '../data/routes';
 import { toDirectionsResult } from '../data/toDirectionsResult';
 
 export const useDirections = ({ map, directionsRenderer }) => {
   const [route, setRoute] = useState();
   const points = useRef([]);
+  const token = useSelector(getSessionToken);
 
   useEffect(() => {
     if (!map) return;
-    // fetchRoute().then(setRoute);
+
     map.addListener('click', (mapsMouseEvent) => {
       points.current.push(mapsMouseEvent.latLng.toJSON());
-      postMarker(points.current).then(setRoute);
+      postMarker(points.current, token).then(setRoute);
     });
   }, [map]);
 

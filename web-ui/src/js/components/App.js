@@ -17,7 +17,7 @@ const App = () => (
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/map">
+        <Route path="/new">
           <Map />
         </Route>
         <Route path="/">

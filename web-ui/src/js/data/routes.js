@@ -6,14 +6,14 @@ import { apiFetch } from './api';
 const FETCH_ROUTE = 'FETCH_ROUTE';
 const ADD_MARKER = 'ADD_MARKER';
 
-export const fetchRoute = () => apiFetch(`/routes/1`, FETCH_ROUTE);
+export const fetchRoute = (id) => apiFetch(`/routes/${id}`, FETCH_ROUTE);
 
-export const postMarker = (points) =>
+export const postMarker = (points, token) =>
   apiFetch(
-    `/routes/1/add_marker`,
+    `/routes/add_marker`,
     ADD_MARKER,
     'POST',
-    JSON.stringify({ points })
+    JSON.stringify({ points, token })
   );
 
 export const routesReducer = createReducer(

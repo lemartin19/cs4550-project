@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { LOCAL_STORAGE_REDIRECT } from '../config';
+import { LOCAL_STORAGE_REDIRECT } from '../constants/config';
 import { getSessionToken } from '../data/login';
 
 export const useRequireAuth = (currentRoute) => {

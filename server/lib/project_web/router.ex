@@ -16,7 +16,7 @@ defmodule ProjectWeb.Router do
   scope "/api/v1", ProjectWeb do
     pipe_through(:api)
 
-    post("/routes/:id/add_marker", RouteController, :add_marker)
+    post("/routes/add_marker", RouteController, :add_marker)
     resources("/routes", RouteController, except: [:new, :edit])
     resources("/users", UserController, except: [:new, :edit])
   end
