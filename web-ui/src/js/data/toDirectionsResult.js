@@ -7,21 +7,32 @@
  * https://gis.stackexchange.com/questions/15197/google-maps-v3-in-javascript-api-render-route-obtained-with-web-api
  */
 
-const asBounds = ({ southwest, northeast }) =>
-  new google.maps.LatLngBounds(southwest, northeast);
+const asBounds = (bounds) => ({
+  north: bounds.northeast.lat,
+  east: bounds.northeast.lng,
+  south: bounds.southwest.lat,
+  west: bounds.southwest.lng,
+});
 
 const asPath = ({ points }) => google.maps.geometry.encoding.decodePath(points);
 
-export const toDirectionsResult = (routesString) => {
-  const routes = JSON.parse(routesString);
+export const toDirectionsResult = (routes) => {
+  const newRoutes = [];
   routes.forEach((route) => {
-    route.bounds = asBounds(route.bounds);
+    const newRoute = {};
+    newRoute.bounds = asBounds(route.bounds);
 
+    newRoute.legs = [];
     route.legs.forEach((leg) => {
+      const newLeg = { steps: [] };
       leg.steps.forEach((step) => {
-        step.path = asPath(step.polyline);
+        const newStep = {};
+        newStep.path = asPath(step.polyline);
+        newLeg.steps.push(newStep);
       });
+      newRoute.legs.push(newLeg);
     });
+    newRoutes.push(newRoute);
   });
-  return routes;
+  return newRoutes;
 };

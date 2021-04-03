@@ -18,15 +18,18 @@ export const postMarker = (points, token) =>
   });
 
 export const routesReducer = createReducer(
-  {},
+  { staged: {} },
   {
     [FETCH_ROUTE]: (state, { payload }) => {
       return Object.assign({}, state, { [payload.id]: payload });
     },
-    [ADD_MARKER]: () => {
-      return null;
+    [ADD_MARKER]: (state, { payload }) => {
+      const staged = Object.assign({}, state.staged, payload);
+      return Object.assign({}, state, { staged });
     },
   }
 );
 
 export const getRoutes = (state) => state.routes;
+export const getStagedRoute = (state) => state.routes.staged;
+export const getRoute = (state, id) => state.routes[id];

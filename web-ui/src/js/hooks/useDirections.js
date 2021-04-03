@@ -1,13 +1,14 @@
 'use es6';
 
-import { useEffect, useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { getSessionToken } from '../data/login';
-import { postMarker } from '../data/routes';
+import { getStagedRoute, postMarker } from '../data/routes';
 import { toDirectionsResult } from '../data/toDirectionsResult';
 
 export const useDirections = ({ map, directionsRenderer }) => {
-  const [route, setRoute] = useState();
+  const dispatch = useDispatch();
+  const { json } = useSelector(getStagedRoute);
   const points = useRef([]);
   const token = useSelector(getSessionToken);
 
@@ -16,17 +17,17 @@ export const useDirections = ({ map, directionsRenderer }) => {
 
     map.addListener('click', (mapsMouseEvent) => {
       points.current.push(mapsMouseEvent.latLng.toJSON());
-      postMarker(points.current, token).then(setRoute);
+      postMarker(points.current, token).then(dispatch);
     });
-  }, [map]);
+  }, [map, dispatch]);
 
   useEffect(() => {
-    if (directionsRenderer && route && route !== []) {
-      const directionsResult = toDirectionsResult(route);
+    if (directionsRenderer && json && json.length) {
+      const directionsResult = toDirectionsResult(json);
       directionsRenderer.setDirections({
         routes: directionsResult,
         request: { travelMode: 'WALKING' },
       });
     }
-  }, [directionsRenderer, route]);
+  }, [directionsRenderer, json]);
 };
