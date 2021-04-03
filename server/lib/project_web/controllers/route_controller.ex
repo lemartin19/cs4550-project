@@ -7,7 +7,7 @@ defmodule ProjectWeb.RouteController do
 
   action_fallback(ProjectWeb.FallbackController)
 
-  alias EventAppSpaWeb.Plugs
+  alias ProjectWeb.Plugs
   plug(Plugs.RequireAuth)
 
   def index(conn, _params) do
@@ -33,7 +33,6 @@ defmodule ProjectWeb.RouteController do
       {:ok, %Route{} = route} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", Routes.route_path(conn, :show, route))
         |> render("show.json", route: route)
 
       {:error, %Ecto.Changeset{} = changeset} ->

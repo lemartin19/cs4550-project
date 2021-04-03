@@ -27,8 +27,23 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :cors_plug,
-  origin: ["https://project.seablue.site"],
+  # origin: ["https://project.seablue.site"],
   max_age: 86400,
+  headers: [
+    "Authorization",
+    "Content-Type",
+    "Accept",
+    "Origin",
+    "User-Agent",
+    "DNT",
+    "Cache-Control",
+    "X-Mx-ReqToken",
+    "Keep-Alive",
+    "X-Requested-With",
+    "If-Modified-Since",
+    "X-CSRF-Token",
+    "x-auth"
+  ],
   methods: ["GET", "POST"]
 
 # Import environment specific config. This must remain at the bottom

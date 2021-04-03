@@ -12,12 +12,12 @@ export const fetchUsers = () => apiFetch(`/users`, FETCH_USERS);
 export const fetchUser = (id) => apiFetch(`/users/${id}`, FETCH_USER);
 
 export const createUser = (username, email, password) =>
-  apiFetch(
-    `/users`,
-    CREATE_USER,
-    'POST',
-    JSON.stringify({ name: username, email, password })
-  );
+  apiFetch({
+    path: `/users`,
+    type: CREATE_USER,
+    method: 'POST',
+    body: JSON.stringify({ name: username, email, password }),
+  });
 
 export const userReducer = createReducer(
   { data: {}, isLoaded: false },

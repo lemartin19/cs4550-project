@@ -12,7 +12,7 @@ defmodule ProjectWeb.UserView do
   end
 
   def render("user.json", %{user: user}) do
-    %{id: user.id, username: user.username, email: user.email, password_hash: user.password_hash}
+    %{id: user.id, name: user.name, email: user.email, password_hash: user.password_hash}
   end
 
   def render("error.json", %{changeset: changeset}) do

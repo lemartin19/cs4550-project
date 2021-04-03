@@ -9,12 +9,13 @@ const ADD_MARKER = 'ADD_MARKER';
 export const fetchRoute = (id) => apiFetch(`/routes/${id}`, FETCH_ROUTE);
 
 export const postMarker = (points, token) =>
-  apiFetch(
-    `/routes/add_marker`,
-    ADD_MARKER,
-    'POST',
-    JSON.stringify({ points, token })
-  );
+  apiFetch({
+    path: `/routes/add_marker`,
+    type: ADD_MARKER,
+    method: 'POST',
+    token,
+    body: JSON.stringify({ points }),
+  });
 
 export const routesReducer = createReducer(
   {},

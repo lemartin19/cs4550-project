@@ -18,7 +18,7 @@ defmodule ProjectWeb.Router do
 
     post("/routes/add_marker", RouteController, :add_marker)
     resources("/routes", RouteController, except: [:new, :edit])
-    resources("/users", UserController, except: [:new, :edit])
+    resources "/users", UserController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development

@@ -4,7 +4,7 @@ defmodule ProjectWeb.UserController do
   alias Project.Users
   alias Project.Users.User
 
-  action_fallback ProjectWeb.FallbackController
+  action_fallback(ProjectWeb.FallbackController)
 
   def index(conn, _params) do
     users = Users.list_users()

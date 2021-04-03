@@ -9,7 +9,12 @@ const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 
 export const postLogin = (email, password) =>
-  apiFetch(`/session`, LOGIN, 'POST', JSON.stringify({ email, password }));
+  apiFetch({
+    path: `/session`,
+    type: LOGIN,
+    method: 'POST',
+    body: JSON.stringify({ email, password }),
+  });
 
 export const postLogout = () => ({ type: LOGOUT });
 

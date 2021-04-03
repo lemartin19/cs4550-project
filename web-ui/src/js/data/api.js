@@ -2,12 +2,15 @@
 
 const API_BASE = 'https://project-api.seablue.site/api/v1';
 
-export const apiFetch = (path, type, method, body) =>
+export const apiFetch = ({ path, type, token, method, body }) =>
   fetch(`${API_BASE}${path}`, {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: token
+      ? {
+          'Content-Type': 'application/json',
+          'x-auth': token,
+        }
+      : { 'Content-Type': 'application/json' },
     body,
   })
     .then((response) => response.json())
