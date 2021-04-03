@@ -2,23 +2,23 @@ defmodule ProjectWeb.Router do
   use ProjectWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_flash)
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
   scope "/api/v1", ProjectWeb do
-    pipe_through :api
+    pipe_through(:api)
 
-    post "/routes/:id/add_marker", RouteController, :add_marker
-    resources "/routes", RouteController, only: [:show]
-    resources "/users", UserController, except: [:new, :edit]
+    post("/routes/:id/add_marker", RouteController, :add_marker)
+    resources("/routes", RouteController, except: [:new, :edit])
+    resources("/users", UserController, except: [:new, :edit])
   end
 
   # Enables LiveDashboard only for development
@@ -32,8 +32,8 @@ defmodule ProjectWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through :browser
-      live_dashboard "/dashboard", metrics: ProjectWeb.Telemetry
+      pipe_through(:browser)
+      live_dashboard("/dashboard", metrics: ProjectWeb.Telemetry)
     end
   end
 end

@@ -1,13 +1,21 @@
 defmodule ProjectWeb.RouteView do
   use ProjectWeb, :view
+  alias ProjectWeb.RouteView
+  alias ProjectWeb.ChangesetView
 
-  require Logger
+  def render("index.json", %{routes: routes}) do
+    %{data: render_many(routes, RouteView, "route.json")}
+  end
 
   def render("show.json", %{route: route}) do
-    %{data: render_one(route, ProjectWeb.RouteView, "route.json")}
+    %{data: render_one(route, RouteView, "route.json")}
   end
 
   def render("route.json", %{route: route}) do
-    Jason.encode!(route)
+    %{id: route.id, name: route.name, json: route.json, description: route.description}
+  end
+
+  def render("error.json", %{changeset: changeset}) do
+    render_one(changeset, ChangesetView, "error.json")
   end
 end
