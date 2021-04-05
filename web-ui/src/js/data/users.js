@@ -16,7 +16,7 @@ export const createUser = (username, email, password) =>
     path: `/users`,
     type: CREATE_USER,
     method: 'POST',
-    body: JSON.stringify({ name: username, email, password }),
+    requestArgs: { name: username, email, password },
   });
 
 export const userReducer = createReducer(

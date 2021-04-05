@@ -3,9 +3,10 @@ defmodule Project.Routes.Route do
   import Ecto.Changeset
 
   schema "routes" do
+    field :name, :string
     field :description, :string
     field :json, :string
-    field :name, :string
+    field :points, :string
     field :user_id, :id
 
     timestamps()
@@ -14,7 +15,7 @@ defmodule Project.Routes.Route do
   @doc false
   def changeset(route, attrs) do
     route
-    |> cast(attrs, [:name, :json, :description])
-    |> validate_required([:name, :json, :description])
+    |> cast(attrs, [:name, :json, :description, :user_id])
+    |> validate_required([:name, :json, :description, :user_id])
   end
 end

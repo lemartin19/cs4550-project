@@ -13,7 +13,7 @@ export const postLogin = (email, password) =>
     path: `/session`,
     type: LOGIN,
     method: 'POST',
-    body: JSON.stringify({ email, password }),
+    requestArgs: { email, password },
   });
 
 export const postLogout = () => ({ type: LOGOUT });

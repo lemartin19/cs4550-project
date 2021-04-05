@@ -2,7 +2,7 @@
 
 const API_BASE = 'https://project-api.seablue.site/api/v1';
 
-export const apiFetch = ({ path, type, token, method, body }) =>
+export const apiFetch = ({ path, type, token, method, requestArgs }) =>
   fetch(`${API_BASE}${path}`, {
     method,
     headers: token
@@ -11,7 +11,7 @@ export const apiFetch = ({ path, type, token, method, body }) =>
           'x-auth': token,
         }
       : { 'Content-Type': 'application/json' },
-    body,
+    body: JSON.stringify(requestArgs),
   })
     .then((response) => response.json())
     .then((response) => {
@@ -21,4 +21,4 @@ export const apiFetch = ({ path, type, token, method, body }) =>
         .join('\n');
       throw new Error(message);
     })
-    .then(({ data }) => ({ type, payload: data }));
+    .then(({ data }) => ({ type, requestArgs, payload: data }));
