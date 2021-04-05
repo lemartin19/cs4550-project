@@ -16,9 +16,10 @@ defmodule ProjectWeb.Router do
   scope "/api/v1", ProjectWeb do
     pipe_through(:api)
 
-    post("/routes/add_marker", RouteController, :add_marker)
-    resources("/routes", RouteController, except: [:new, :edit])
+    post "/routes/add_marker", RouteController, :add_marker
+    resources "/routes", RouteController, except: [:new, :edit]
     resources "/users", UserController, except: [:new, :edit]
+    resources "/session", SessionController, only: [:create]
   end
 
   # Enables LiveDashboard only for development
