@@ -8,7 +8,7 @@ import { toDirectionsResult } from '../data/toDirectionsResult';
 
 export const useDirections = ({ map, directionsRenderer }) => {
   const dispatch = useDispatch();
-  const { points, json } = useSelector(getStagedRoute);
+  const { points, directions } = useSelector(getStagedRoute);
   const token = useSelector(getSessionToken);
 
   useEffect(() => {
@@ -21,12 +21,12 @@ export const useDirections = ({ map, directionsRenderer }) => {
   }, [map, points, dispatch]);
 
   useEffect(() => {
-    if (directionsRenderer && json && json.length) {
-      const directionsResult = toDirectionsResult(json);
+    if (directionsRenderer && directions && directions.length) {
+      const directionsResult = toDirectionsResult(directions);
       directionsRenderer.setDirections({
         routes: directionsResult,
         request: { travelMode: 'WALKING' },
       });
     }
-  }, [directionsRenderer, json]);
+  }, [directionsRenderer, directions]);
 };

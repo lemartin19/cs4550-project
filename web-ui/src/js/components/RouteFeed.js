@@ -1,7 +1,7 @@
 'use es6';
 
 import React from 'react';
-import { Card, Container } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
 import Nav from './Nav';
 import { useRouteFeed } from '../hooks/useRouteFeed';
 
@@ -19,9 +19,15 @@ const RouteFeed = () => {
   return (
     <Container>
       <Nav />
-      {routes.length
-        ? routes.map((route) => <Route {...route} key={route.name} />)
-        : 'No routes to view'}
+      <h1>Route Feed</h1>
+      <Button variant="primary" size="small" href="/new">
+        New route
+      </Button>
+      <div className="my-4">
+        {routes.length
+          ? routes.map((route) => <Route {...route} key={route.name} />)
+          : 'No routes to view'}
+      </div>
     </Container>
   );
 };

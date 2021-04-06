@@ -1,8 +1,9 @@
 'use es6';
 
 import React from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Button, Container, Form } from 'react-bootstrap';
 import { useEditPanel } from '../hooks/useEditPanel';
+import MaybeError from './MaybeError';
 
 const EditPanel = () => {
   const { routeInfo, setField, isLoading, onSubmit } = useEditPanel();
@@ -10,6 +11,7 @@ const EditPanel = () => {
   return (
     <Container id="EditPanel">
       <h2 className="my-4">Edit route</h2>
+      <MaybeError variant="danger">{routeInfo.error}</MaybeError>
       <Form onSubmit={onSubmit}>
         <Form.Label>Name</Form.Label>
         <Form.Control

@@ -16,8 +16,8 @@ defmodule ProjectWeb.RouteController do
   end
 
   def add_marker(conn, %{"points" => points}) do
-    route = DirectionsApi.fetch_directions(points)
-    render(conn, "path.json", %{route: route})
+    directions = DirectionsApi.fetch_directions(points)
+    render(conn, "directions.json", %{directions: directions})
   end
 
   def create(conn, route_params) do
@@ -44,14 +44,21 @@ defmodule ProjectWeb.RouteController do
 
   def show(conn, %{"id" => id}) do
     route = Routes.get_route!(id)
-    render(conn, "show.json", route: route)
+    route = Map.put(route, "directions", DirectionsApi.fetch_directions(route.points))
+    render(conn, "show.json", %{route: route})
   end
 
   def update(conn, %{"id" => id, "route" => route_params}) do
     route = Routes.get_route!(id)
 
-    with {:ok, %Route{} = route} <- Routes.update_route(route, route_params) do
-      render(conn, "show.json", route: route)
+    case Routes.update_route(route, route_params) do
+      {:ok, %Route{} = route} ->
+        render(conn, "show.json", route: route)
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_status(:bad_request)
+        |> render("error.json", changeset: changeset)
     end
   end
 

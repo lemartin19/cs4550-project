@@ -12,8 +12,8 @@ defmodule ProjectWeb.RouteView do
     %{data: render_one(route, RouteView, "route.json")}
   end
 
-  def render("path.json", %{route: route}) do
-    %{data: %{json: route}}
+  def render("directions.json", %{directions: directions}) do
+    %{data: %{directions: directions}}
   end
 
   def render("route.json", %{route: route}) do
