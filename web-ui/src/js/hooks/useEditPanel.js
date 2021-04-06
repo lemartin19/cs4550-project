@@ -2,11 +2,13 @@
 
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import { getSessionToken } from '../data/login';
 import { createRoute, getStagedRoute } from '../data/routes';
 
 export const useEditPanel = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [routeInfo, setRouteInfo] = useState({
     name: '',
     description: '',

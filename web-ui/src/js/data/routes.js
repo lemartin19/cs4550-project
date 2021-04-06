@@ -4,10 +4,15 @@ import { createReducer } from '@reduxjs/toolkit';
 import { apiFetch } from './api';
 
 const FETCH_ROUTE = 'FETCH_ROUTE';
+const FETCH_ROUTES = 'FETCH_ROUTES';
 const CREATE_ROUTE = 'CREATE_ROUTE';
 const ADD_MARKER = 'ADD_MARKER';
 
-export const fetchRoute = (id) => apiFetch(`/routes/${id}`, FETCH_ROUTE);
+export const fetchRoute = (id, token) =>
+  apiFetch({ path: `/routes/${id}`, type: FETCH_ROUTE, token });
+
+export const fetchRoutes = (token) =>
+  apiFetch({ path: `/routes`, type: FETCH_ROUTES, token });
 
 export const postMarker = (points, token) =>
   apiFetch({
@@ -18,20 +23,30 @@ export const postMarker = (points, token) =>
     requestArgs: { points },
   });
 
-export const createRoute = ({ name, description, points, json }, token) =>
+export const createRoute = ({ name, description, points }, token) =>
   apiFetch({
     path: `/routes`,
     type: CREATE_ROUTE,
     method: 'POST',
     token,
-    requestArgs: { name, description, points, json },
+    requestArgs: { name, description, points },
   });
 
 export const routesReducer = createReducer(
-  { staged: {} },
+  { staged: {}, saved: {}, isLoaded: false },
   {
     [FETCH_ROUTE]: (state, { payload }) => {
-      return Object.assign({}, state, { [payload.id]: payload });
+      const newSaved = Object.assign({}, state.saved, {
+        [payload.id]: payload,
+      });
+      return Object.assign({}, state, { saved: newSaved });
+    },
+    [FETCH_ROUTES]: (state, { payload }) => {
+      const newState = { staged: state.staged, saved: {}, isLoaded: true };
+      payload.forEach((route) => {
+        newState.saved[route.id] = route;
+      });
+      return newState;
     },
     [ADD_MARKER]: (state, { requestArgs, payload }) => {
       const staged = Object.assign({}, state.staged, requestArgs, payload);
@@ -40,6 +55,7 @@ export const routesReducer = createReducer(
   }
 );
 
-export const getRoutes = (state) => state.routes;
+export const getRoutesAreLoaded = (state) => state.routes.isLoaded;
+export const getRoutes = (state) => state.routes.saved;
 export const getStagedRoute = (state) => state.routes.staged;
-export const getRoute = (state, id) => state.routes[id];
+export const getRoute = (state, id) => state.routes.saved[id];

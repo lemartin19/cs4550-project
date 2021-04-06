@@ -1,6 +1,7 @@
 defmodule ProjectWeb.RouteView do
   use ProjectWeb, :view
   alias ProjectWeb.RouteView
+  alias ProjectWeb.UserView
   alias ProjectWeb.ChangesetView
 
   def render("index.json", %{routes: routes}) do
@@ -16,7 +17,12 @@ defmodule ProjectWeb.RouteView do
   end
 
   def render("route.json", %{route: route}) do
-    %{id: route.id, name: route.name, json: route.json, description: route.description}
+    %{
+      id: route.id,
+      name: route.name,
+      description: route.description,
+      user: render_one(route.user, UserView, "user.json")
+    }
   end
 
   def render("error.json", %{changeset: changeset}) do

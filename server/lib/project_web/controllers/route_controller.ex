@@ -5,10 +5,10 @@ defmodule ProjectWeb.RouteController do
   alias Project.Routes
   alias Project.Routes.Route
 
-  action_fallback(ProjectWeb.FallbackController)
+  action_fallback ProjectWeb.FallbackController
 
   alias ProjectWeb.Plugs
-  plug(Plugs.RequireAuth)
+  plug Plugs.RequireAuth
 
   def index(conn, _params) do
     routes = Routes.list_routes()
@@ -26,7 +26,7 @@ defmodule ProjectWeb.RouteController do
     result =
       route_params
       |> Map.put("user_id", current_user.id)
-      |> Map.put("json", DirectionsApi.fetch_directions(route_params["points"]))
+      |> Map.update!("points", fn pts -> Jason.encode!(pts) end)
       |> Routes.create_route()
 
     case result do

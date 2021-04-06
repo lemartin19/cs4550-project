@@ -5,8 +5,14 @@ defmodule Project.Routes do
 
   import Ecto.Query, warn: false
   alias Project.Repo
+  alias Project.DirectionsApi
 
   alias Project.Routes.Route
+
+  def add_directions(route) do
+    json = DirectionsApi.fetch_directions(route["path"])
+    Map.put(route, "json", json)
+  end
 
   @doc """
   Returns the list of routes.
@@ -19,6 +25,7 @@ defmodule Project.Routes do
   """
   def list_routes do
     Repo.all(Route)
+    |> Repo.preload(:user)
   end
 
   @doc """
@@ -35,7 +42,9 @@ defmodule Project.Routes do
       ** (Ecto.NoResultsError)
 
   """
-  def get_route!(id), do: Repo.get!(Route, id)
+  def get_route!(id) do
+    Repo.get!(Route, id)
+  end
 
   @doc """
   Creates a route.
