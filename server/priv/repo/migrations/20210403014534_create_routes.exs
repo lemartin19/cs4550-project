@@ -6,6 +6,7 @@ defmodule Project.Repo.Migrations.CreateRoutes do
       add :name, :string, null: false
       add :description, :string, null: false
       add :points, :string, null: false
+      add :distance, :float, null: false
       add :user_id, references(:users, on_delete: :nothing), null: false
 
       timestamps()

@@ -5,6 +5,7 @@ defmodule Project.Routes.Route do
   schema "routes" do
     field :name, :string
     field :description, :string
+    field :distance, :float
     field :points, :string
     belongs_to :user, Project.Users.User
 
@@ -14,7 +15,7 @@ defmodule Project.Routes.Route do
   @doc false
   def changeset(route, attrs) do
     route
-    |> cast(attrs, [:name, :description, :points, :user_id])
-    |> validate_required([:name, :description, :points, :user_id])
+    |> cast(attrs, [:name, :description, :distance, :points, :user_id])
+    |> validate_required([:name, :description, :distance, :points, :user_id])
   end
 end

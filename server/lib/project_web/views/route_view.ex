@@ -21,6 +21,7 @@ defmodule ProjectWeb.RouteView do
       id: route.id,
       name: route.name,
       description: route.description,
+      distance: route.distance,
       user: render_one(route.user, UserView, "user.json")
     }
   end

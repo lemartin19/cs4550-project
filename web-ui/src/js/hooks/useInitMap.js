@@ -8,6 +8,7 @@ const initMap = () => {
   const map = new google.maps.Map(document.getElementById('Map'), {
     center: { lat: 42.3601, lng: -71.0589 },
     zoom: 13,
+    mapTypeControl: false,
     streetViewControl: false,
   });
   const infoWindow = new google.maps.InfoWindow();

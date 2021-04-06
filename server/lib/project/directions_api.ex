@@ -30,12 +30,13 @@ defmodule Project.DirectionsApi do
 
     url = get_url(start, finish, waypoints)
 
-    %{"status" => "OK", "routes" => route} =
+    response =
       url
       |> HTTPoison.get!()
       |> (fn resp -> resp.body end).()
       |> Jason.decode!()
 
-    route
+    # IO.inspect(response)
+    response["routes"]
   end
 end

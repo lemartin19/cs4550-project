@@ -46,5 +46,11 @@ export const useEditPanel = () => {
     [routeInfo, routeDirections, token, dispatch]
   );
 
-  return { routeInfo, setField, isLoading, onSubmit };
+  return {
+    routeInfo,
+    distance: routeDirections.distance,
+    setField,
+    isLoading,
+    onSubmit,
+  };
 };

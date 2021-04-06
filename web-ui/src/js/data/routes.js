@@ -15,13 +15,13 @@ export const fetchRoute = (id, token) =>
 export const fetchRoutes = (token) =>
   apiFetch({ path: `/routes`, type: FETCH_ROUTES, token });
 
-export const createRoute = ({ name, description, points }, token) =>
+export const createRoute = ({ name, description, distance, points }, token) =>
   apiFetch({
     path: `/routes`,
     type: CREATE_ROUTE,
     method: 'POST',
     token,
-    requestArgs: { name, description, points },
+    requestArgs: { name, description, distance, points },
   });
 
 export const deleteRoute = (id, token) =>
@@ -67,7 +67,17 @@ export const routesReducer = createReducer(
       return Object.assign({}, state, { saved: newSaved });
     },
     [ADD_MARKER]: (state, { requestArgs, payload }) => {
-      const staged = Object.assign({}, state.staged, requestArgs, payload);
+      const distance = payload.directions.reduce(
+        (totalDistance, direction) =>
+          direction.legs.reduce(
+            (accDistance, leg) => accDistance + leg.distance.value,
+            totalDistance
+          ),
+        0
+      );
+      const staged = Object.assign({}, state.staged, requestArgs, payload, {
+        distance,
+      });
       return Object.assign({}, state, { staged });
     },
   }
