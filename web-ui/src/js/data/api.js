@@ -13,7 +13,9 @@ export const apiFetch = ({ path, type, token, method, requestArgs }) =>
       : { 'Content-Type': 'application/json' },
     body: JSON.stringify(requestArgs),
   })
-    .then((response) => response.json())
+    .then((response) =>
+      response.status === 204 ? { data: {} } : response.json()
+    )
     .then((response) => {
       if (response.data) return response;
       const message = Object.keys(response.errors)

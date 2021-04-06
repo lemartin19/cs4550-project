@@ -6,6 +6,8 @@ import { getSessionToken } from '../data/login';
 import { getStagedRoute, postMarker } from '../data/routes';
 import { toDirectionsResult } from '../data/toDirectionsResult';
 
+/* global google */
+
 export const useDirections = ({ map, directionsRenderer }) => {
   const dispatch = useDispatch();
   const { points, directions } = useSelector(getStagedRoute);
@@ -14,10 +16,11 @@ export const useDirections = ({ map, directionsRenderer }) => {
   useEffect(() => {
     if (!map) return;
 
-    map.addListener('click', (mapsMouseEvent) => {
-      const newPoints = (points || []).concat([mapsMouseEvent.latLng.toJSON()]);
+    const clickListener = map.addListener('click', (mapsMouseEvent) => {
+      const newPoints = [...(points || []), mapsMouseEvent.latLng.toJSON()];
       postMarker(newPoints, token).then(dispatch);
     });
+    return () => google.maps.event.removeListener(clickListener);
   }, [map, points, dispatch]);
 
   useEffect(() => {

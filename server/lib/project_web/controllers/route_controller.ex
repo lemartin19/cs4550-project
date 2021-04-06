@@ -9,6 +9,13 @@ defmodule ProjectWeb.RouteController do
 
   alias ProjectWeb.Plugs
   plug Plugs.RequireAuth
+  plug :require_route when action in [:show, :update, :delete]
+  plug Plugs.RequireRouteOwner when action in [:update, :delete]
+
+  def require_route(conn, _args) do
+    route = conn.params["id"] |> Routes.get_route!()
+    assign(conn, :route, route)
+  end
 
   def index(conn, _params) do
     routes = Routes.list_routes()
@@ -42,14 +49,14 @@ defmodule ProjectWeb.RouteController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    route = Routes.get_route!(id)
+  def show(conn, _params) do
+    route = conn.assigns[:route]
     route = Map.put(route, "directions", DirectionsApi.fetch_directions(route.points))
     render(conn, "show.json", %{route: route})
   end
 
-  def update(conn, %{"id" => id, "route" => route_params}) do
-    route = Routes.get_route!(id)
+  def update(conn, route_params) do
+    route = conn.assigns[:route]
 
     case Routes.update_route(route, route_params) do
       {:ok, %Route{} = route} ->
@@ -62,8 +69,8 @@ defmodule ProjectWeb.RouteController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    route = Routes.get_route!(id)
+  def delete(conn, _params) do
+    route = conn.assigns[:route]
 
     with {:ok, %Route{}} <- Routes.delete_route(route) do
       send_resp(conn, :no_content, "")

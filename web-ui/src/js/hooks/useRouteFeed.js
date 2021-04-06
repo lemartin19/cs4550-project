@@ -17,5 +17,5 @@ export const useRouteFeed = () => {
     fetchRoutes(token).then(dispatch);
   }, [routes, areLoaded]);
 
-  return { areLoaded, routes: Object.values(routes) };
+  return { token, areLoaded, routes: Object.values(routes) };
 };

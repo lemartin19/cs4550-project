@@ -25,12 +25,18 @@ export const useEditPanel = () => {
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
+
+      if (!routeDirections.points || !routeDirections.points.length) {
+        setField('error', 'Must create a route to save.');
+        return;
+      }
+
       setIsLoading(true);
       createRoute({ ...routeInfo, ...routeDirections }, token)
-        .then(dispatch)
-        .then(() => {
+        .then((action) => {
+          dispatch(action);
           setIsLoading(false);
-          history.push(`/routes`);
+          history.push(`/routes/${action.payload.id}`);
         })
         .catch(({ message }) => {
           setIsLoading(false);

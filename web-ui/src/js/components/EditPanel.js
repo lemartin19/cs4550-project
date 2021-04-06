@@ -11,7 +11,7 @@ const EditPanel = () => {
   return (
     <Container id="EditPanel">
       <h2 className="my-4">Edit route</h2>
-      <MaybeError variant="danger">{routeInfo.error}</MaybeError>
+      <MaybeError variant="danger" error={routeInfo.error} />
       <Form onSubmit={onSubmit}>
         <Form.Label>Name</Form.Label>
         <Form.Control

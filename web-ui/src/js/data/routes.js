@@ -6,6 +6,7 @@ import { apiFetch } from './api';
 const FETCH_ROUTE = 'FETCH_ROUTE';
 const FETCH_ROUTES = 'FETCH_ROUTES';
 const CREATE_ROUTE = 'CREATE_ROUTE';
+const DELETE_ROUTE = 'DELETE_ROUTE';
 const ADD_MARKER = 'ADD_MARKER';
 
 export const fetchRoute = (id, token) =>
@@ -14,15 +15,6 @@ export const fetchRoute = (id, token) =>
 export const fetchRoutes = (token) =>
   apiFetch({ path: `/routes`, type: FETCH_ROUTES, token });
 
-export const postMarker = (points, token) =>
-  apiFetch({
-    path: `/routes/add_marker`,
-    type: ADD_MARKER,
-    method: 'POST',
-    token,
-    requestArgs: { points },
-  });
-
 export const createRoute = ({ name, description, points }, token) =>
   apiFetch({
     path: `/routes`,
@@ -30,6 +22,24 @@ export const createRoute = ({ name, description, points }, token) =>
     method: 'POST',
     token,
     requestArgs: { name, description, points },
+  });
+
+export const deleteRoute = (id, token) =>
+  apiFetch({
+    path: `/routes/${id}`,
+    type: DELETE_ROUTE,
+    method: 'DELETE',
+    token,
+    requestArgs: { id },
+  });
+
+export const postMarker = (points, token) =>
+  apiFetch({
+    path: `/routes/add_marker`,
+    type: ADD_MARKER,
+    method: 'POST',
+    token,
+    requestArgs: { points },
   });
 
 export const routesReducer = createReducer(
@@ -47,6 +57,14 @@ export const routesReducer = createReducer(
         newState.saved[route.id] = route;
       });
       return newState;
+    },
+    [DELETE_ROUTE]: (state, { requestArgs }) => {
+      const newSaved = {};
+      Object.keys(state.saved).forEach((id) => {
+        if (id === `${requestArgs.id}`) return;
+        newSaved[id] = state.saved[id];
+      });
+      return Object.assign({}, state, { saved: newSaved });
     },
     [ADD_MARKER]: (state, { requestArgs, payload }) => {
       const staged = Object.assign({}, state.staged, requestArgs, payload);
