@@ -51,7 +51,8 @@ defmodule ProjectWeb.RouteController do
 
   def show(conn, _params) do
     route = conn.assigns[:route]
-    route = Map.put(route, "directions", DirectionsApi.fetch_directions(route.points))
+    points = Jason.decode!(route.points)
+    route = Map.put(route, :directions, DirectionsApi.fetch_directions(points))
     render(conn, "show.json", %{route: route})
   end
 

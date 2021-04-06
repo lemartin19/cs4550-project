@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './Login';
 import Map from './Map';
 import Register from './Register';
+import RouteDetails from './RouteDetails';
 import RouteFeed from './RouteFeed';
 
 const App = () => (
@@ -19,6 +20,9 @@ const App = () => (
         </Route>
         <Route path="/new">
           <Map />
+        </Route>
+        <Route path="/routes/:id">
+          <RouteDetails />
         </Route>
         <Route path="/">
           <RouteFeed />
