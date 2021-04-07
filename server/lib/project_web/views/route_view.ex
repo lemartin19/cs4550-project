@@ -8,6 +8,15 @@ defmodule ProjectWeb.RouteView do
     %{data: render_many(routes, RouteView, "route.json")}
   end
 
+  def render("show.json", %{route: route, directions: directions}) do
+    route =
+      route
+      |> render_one(RouteView, "route.json")
+      |> Map.put(:directions, directions)
+
+    %{data: route}
+  end
+
   def render("show.json", %{route: route}) do
     %{data: render_one(route, RouteView, "route.json")}
   end
@@ -22,6 +31,7 @@ defmodule ProjectWeb.RouteView do
       name: route.name,
       description: route.description,
       distance: route.distance,
+      points: Jason.decode!(route.points),
       user: render_one(route.user, UserView, "user.json")
     }
   end
