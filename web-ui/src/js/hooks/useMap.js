@@ -7,7 +7,7 @@ import { useDirections } from './useDirections';
 import { useGoToCurrentLocation } from './useGoToCurrentLocation';
 
 export const useMap = () => {
-  useRequireAuth();
+  useRequireAuth(window.location.pathname);
 
   const [mapObjects, setMapObjects] = useState({});
 

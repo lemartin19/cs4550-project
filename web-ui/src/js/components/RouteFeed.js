@@ -13,7 +13,7 @@ const RouteFeed = () => {
     <Container>
       <Nav />
       <h1>Route Feed</h1>
-      <Button variant="primary" size="small" href="/new">
+      <Button variant="primary" size="small" href="/new" className="mt-2">
         New route
       </Button>
       <FeedFilters />
