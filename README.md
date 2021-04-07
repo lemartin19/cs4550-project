@@ -7,23 +7,31 @@ Web development project creating a running route planner with saveable routes.
 Based on the amount of time in the project, the below stages of development are provided.
 
 - [x] Initialize the Google Maps API and show a map on the web page.
-- [X] Allow route creation (walking only) on the map.
+- [x] Allow route creation (walking only) on the map.
 - [x] Use browser location services to initialize the map to a relevant starting region.
-- [X] Require user login.
-- [ ] Allow saving of a route and a page for a user to view their existing routes.
-- [ ] Add descriptions/notes on routes.
-- [ ] View of user's routes with name.
-- [ ] Make route feed to view routes of other users.
-- [ ] Add sockets with "Users on route"
+- [x] Require user login.
+- [x] Allow saving of a route.
+- [x] Add descriptions/notes on routes.
+- [x] View of user's routes with name.
+- [x] Make route feed to view routes of other users.
+- [ ] Add start and end markers to routes.
+- [ ] Add sockets with "Users on route."
+- [ ] Make route undo button.
 - [ ] Allow copying/editing of a route.
+- [ ] Add general route comments.
 
 Additional goals as time allows:
 
-- [ ] Add distance on showing route in index page.
-- [ ] Preview image on showing route in index page.
+- [x] Add distance on showing route in index page.
+- [ ] Add static image of route to details and feed (https://developers.google.com/maps/documentation/maps-static/start#Paths).
+- [ ] Add filters in route feeds:
+  - [ ] owner
+  - [ ] distance
+  - [ ] location
+- [ ] Limit the API to only return a certain number of routes at the index.
+- [ ] Make route meetup events with socket.
 - [ ] Add upvotes for a route.
 - [ ] Make routes public or private.
-- [ ] Add filter on route feed for location.
 - [ ] Add comments for specific segments on routes.
 - [ ] Allow bicycle routes.
 
