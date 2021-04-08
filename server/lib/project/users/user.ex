@@ -7,6 +7,7 @@ defmodule Project.Users.User do
     field :password_hash, :string
     field :name, :string
     has_many :routes, Project.Routes.Route
+    has_one :visitor, Project.Visitor
 
     timestamps()
   end

@@ -8,6 +8,7 @@ defmodule Project.Routes.Route do
     field :distance, :float
     field :points, :string
     belongs_to :user, Project.Users.User
+    has_many :visitors, Project.Visitor
 
     timestamps()
   end
