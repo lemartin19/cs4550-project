@@ -6,8 +6,15 @@ import { apiFetch } from './api';
 const FETCH_ROUTE = 'FETCH_ROUTE';
 const FETCH_ROUTES = 'FETCH_ROUTES';
 const CREATE_ROUTE = 'CREATE_ROUTE';
+const UPDATE_ROUTE = 'UPDATE_ROUTE';
 const DELETE_ROUTE = 'DELETE_ROUTE';
+const UPDATE_STAGED = 'UPDATE_STAGED';
 const ADD_MARKER = 'ADD_MARKER';
+
+export const updateStagedRoute = (newStaged) => ({
+  type: UPDATE_STAGED,
+  payload: newStaged,
+});
 
 export const fetchRoute = (id, token) =>
   apiFetch({ path: `/routes/${id}`, type: FETCH_ROUTE, token });
@@ -15,7 +22,7 @@ export const fetchRoute = (id, token) =>
 export const fetchRoutes = (token) =>
   apiFetch({ path: `/routes`, type: FETCH_ROUTES, token });
 
-export const createRoute = ({ name, description, distance, points }, token) =>
+const createRoute = ({ name, description, distance, points }, token) =>
   apiFetch({
     path: `/routes`,
     type: CREATE_ROUTE,
@@ -23,6 +30,18 @@ export const createRoute = ({ name, description, distance, points }, token) =>
     token,
     requestArgs: { name, description, distance, points },
   });
+
+const updateRoute = ({ id, name, description, distance, points }, token) =>
+  apiFetch({
+    path: `/routes/${id}`,
+    type: UPDATE_ROUTE,
+    method: 'PUT',
+    token,
+    requestArgs: { name, description, distance, points },
+  });
+
+export const saveRoute = (routeArgs, token) =>
+  routeArgs.id ? updateRoute(routeArgs, token) : createRoute(routeArgs, token);
 
 export const deleteRoute = (id, token) =>
   apiFetch({
@@ -45,6 +64,11 @@ export const postMarker = (points, token) =>
 export const routesReducer = createReducer(
   { staged: {}, saved: {}, isLoaded: false },
   {
+    [UPDATE_STAGED]: ({ staged, saved, isLoaded }, { payload }) => ({
+      staged: Object.assign({}, staged, payload),
+      saved,
+      isLoaded,
+    }),
     [FETCH_ROUTE]: (state, { payload }) => {
       const newSaved = Object.assign({}, state.saved, {
         [payload.id]: payload,
@@ -57,6 +81,18 @@ export const routesReducer = createReducer(
         newState.saved[route.id] = route;
       });
       return newState;
+    },
+    [CREATE_ROUTE]: (state, { payload }) => {
+      const newSaved = Object.assign({}, state.saved, {
+        [payload.id]: payload,
+      });
+      return Object.assign({}, state, { saved: newSaved });
+    },
+    [UPDATE_ROUTE]: (state, { payload }) => {
+      const newSaved = Object.assign({}, state.saved, {
+        [payload.id]: payload,
+      });
+      return Object.assign({}, state, { saved: newSaved });
     },
     [DELETE_ROUTE]: (state, { requestArgs }) => {
       const newSaved = {};

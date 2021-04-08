@@ -4,35 +4,33 @@ import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { getSessionToken } from '../data/login';
-import { createRoute, getStagedRoute } from '../data/routes';
+import { getStagedRoute, saveRoute, updateStagedRoute } from '../data/routes';
 
 export const useEditPanel = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [routeInfo, setRouteInfo] = useState({
-    name: '',
-    description: '',
-    error: null,
-  });
-  const routeDirections = useSelector(getStagedRoute);
+  const stagedRoute = useSelector(getStagedRoute);
   const token = useSelector(getSessionToken);
   const [isLoading, setIsLoading] = useState(false);
 
-  const setField = useCallback((field, value) => {
-    setRouteInfo((state) => Object.assign({}, state, { [field]: value }));
-  }, []);
+  const setField = useCallback(
+    (field, value) => {
+      dispatch(updateStagedRoute({ [field]: value }));
+    },
+    [dispatch]
+  );
 
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
 
-      if (!routeDirections.points || !routeDirections.points.length) {
+      if (!stagedRoute.points || !stagedRoute.points.length) {
         setField('error', 'Must create a route to save.');
         return;
       }
 
       setIsLoading(true);
-      createRoute({ ...routeInfo, ...routeDirections }, token)
+      saveRoute({ ...stagedRoute }, token)
         .then((action) => {
           dispatch(action);
           setIsLoading(false);
@@ -43,12 +41,11 @@ export const useEditPanel = () => {
           setField('error', message);
         });
     },
-    [routeInfo, routeDirections, token, dispatch]
+    [stagedRoute, token, dispatch]
   );
 
   return {
-    routeInfo,
-    distance: routeDirections.distance,
+    stagedRoute,
     setField,
     isLoading,
     onSubmit,

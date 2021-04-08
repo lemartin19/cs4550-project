@@ -25,20 +25,20 @@ const Distance = ({ meters }) => {
 Distance.displayName = 'Distance';
 
 const EditPanel = () => {
-  const { routeInfo, distance, setField, isLoading, onSubmit } = useEditPanel();
+  const { stagedRoute, setField, isLoading, onSubmit } = useEditPanel();
 
   return (
     <Container id="EditPanel">
       <h2 className="my-4">Edit route</h2>
-      <MaybeError variant="danger" error={routeInfo.error} />
-      <Distance meters={distance} />
+      <MaybeError variant="danger" error={stagedRoute.error} />
+      <Distance meters={stagedRoute.distance} />
       <Form onSubmit={onSubmit}>
         <Form.Label>Name</Form.Label>
         <Form.Control
           name="name"
           type="text"
           onChange={({ target }) => setField('name', target.value)}
-          value={routeInfo.name}
+          value={stagedRoute.name}
           className="mb-4"
         />
         <Form.Label>Description</Form.Label>
@@ -46,11 +46,11 @@ const EditPanel = () => {
           name="description"
           as="textarea"
           onChange={({ target }) => setField('description', target.value)}
-          value={routeInfo.description}
+          value={stagedRoute.description}
           className="mb-4"
         />
         <Button variant="primary" type="submit" disabled={isLoading}>
-          {isLoading ? 'Loading...' : 'Create'}
+          {isLoading ? 'Loading...' : 'Save route'}
         </Button>
       </Form>
     </Container>

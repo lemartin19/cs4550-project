@@ -8,7 +8,7 @@ defmodule Project.DirectionsApi do
       if waypoints == [] do
         ""
       else
-        "&waypoints=#{Enum.join(waypoints, "|")}"
+        "&waypoints=optimize:false|#{Enum.join(waypoints, "|")}"
       end
 
     "https://maps.googleapis.com/maps/api/directions/json?key=#{api_key}&mode=walking&origin=#{
@@ -21,8 +21,8 @@ defmodule Project.DirectionsApi do
   def fetch_directions([_start]), do: []
 
   def fetch_directions(points) do
-    [finish | rest] = Enum.map(points, fn %{"lat" => lat, "lng" => lng} -> "#{lat},#{lng}" end)
-    [start | waypoints] = Enum.reverse(rest)
+    [start | rest] = Enum.map(points, fn %{"lat" => lat, "lng" => lng} -> "#{lat},#{lng}" end)
+    [finish | waypoints] = Enum.reverse(rest)
 
     waypoints =
       Enum.reverse(waypoints)

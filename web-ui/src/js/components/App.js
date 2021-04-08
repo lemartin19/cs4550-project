@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import EditRoute from './EditRoute';
 import Login from './Login';
 import Map from './Map';
 import Register from './Register';
@@ -20,6 +21,9 @@ const App = () => (
         </Route>
         <Route path="/new">
           <Map />
+        </Route>
+        <Route path="/routes/:id/edit">
+          <EditRoute />
         </Route>
         <Route path="/routes/:id">
           <RouteDetails />
