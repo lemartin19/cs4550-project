@@ -11,7 +11,7 @@ defmodule ProjectWeb.SessionController do
         id: user.id,
         name: user.name,
         email: user.email,
-        token: Phoenix.Token.sign(conn, "user_id", user.id)
+        token: Phoenix.Token.sign(ProjectWeb.Endpoint, "user_id", user.id)
       }
 
       conn

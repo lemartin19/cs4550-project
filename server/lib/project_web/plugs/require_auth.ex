@@ -6,7 +6,7 @@ defmodule ProjectWeb.Plugs.RequireAuth do
   def call(conn, _args) do
     token = Enum.at(get_req_header(conn, "x-auth"), 0)
 
-    case Phoenix.Token.verify(conn, "user_id", token, max_age: 86400) do
+    case Phoenix.Token.verify(ProjectWeb.Endpoint, "user_id", token, max_age: 86400) do
       {:ok, user_id} ->
         user = Project.Users.get_user!(user_id)
         assign(conn, :current_user, user)
