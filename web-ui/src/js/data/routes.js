@@ -9,7 +9,7 @@ const CREATE_ROUTE = 'CREATE_ROUTE';
 const UPDATE_ROUTE = 'UPDATE_ROUTE';
 const DELETE_ROUTE = 'DELETE_ROUTE';
 const UPDATE_STAGED = 'UPDATE_STAGED';
-const ADD_MARKER = 'ADD_MARKER';
+const SET_MARKERS = 'SET_MARKERS';
 
 export const updateStagedRoute = (newStaged) => ({
   type: UPDATE_STAGED,
@@ -52,10 +52,10 @@ export const deleteRoute = (id, token) =>
     requestArgs: { id },
   });
 
-export const postMarker = (points, token) =>
+export const setMarkers = (points, token) =>
   apiFetch({
-    path: `/routes/add_marker`,
-    type: ADD_MARKER,
+    path: `/routes/set_points`,
+    type: SET_MARKERS,
     method: 'POST',
     token,
     requestArgs: { points },
@@ -65,15 +65,13 @@ export const routesReducer = createReducer(
   { staged: {}, saved: {}, isLoaded: false },
   {
     [UPDATE_STAGED]: ({ staged, saved, isLoaded }, { payload }) => ({
-      staged: Object.assign({}, staged, payload),
+      staged: { ...staged, ...payload },
       saved,
       isLoaded,
     }),
     [FETCH_ROUTE]: (state, { payload }) => {
-      const newSaved = Object.assign({}, state.saved, {
-        [payload.id]: payload,
-      });
-      return Object.assign({}, state, { saved: newSaved });
+      const newSaved = { ...state.saved, [payload.id]: payload };
+      return { ...state, saved: newSaved };
     },
     [FETCH_ROUTES]: (state, { payload }) => {
       const newState = { staged: state.staged, saved: {}, isLoaded: true };
@@ -83,16 +81,12 @@ export const routesReducer = createReducer(
       return newState;
     },
     [CREATE_ROUTE]: (state, { payload }) => {
-      const newSaved = Object.assign({}, state.saved, {
-        [payload.id]: payload,
-      });
-      return Object.assign({}, state, { saved: newSaved });
+      const newSaved = { ...state.saved, [payload.id]: payload };
+      return { ...state, saved: newSaved };
     },
     [UPDATE_ROUTE]: (state, { payload }) => {
-      const newSaved = Object.assign({}, state.saved, {
-        [payload.id]: payload,
-      });
-      return Object.assign({}, state, { saved: newSaved });
+      const newSaved = { ...state.saved, [payload.id]: payload };
+      return { ...state, saved: newSaved };
     },
     [DELETE_ROUTE]: (state, { requestArgs }) => {
       const newSaved = {};
@@ -100,9 +94,9 @@ export const routesReducer = createReducer(
         if (id === `${requestArgs.id}`) return;
         newSaved[id] = state.saved[id];
       });
-      return Object.assign({}, state, { saved: newSaved });
+      return { ...state, saved: newSaved };
     },
-    [ADD_MARKER]: (state, { requestArgs, payload }) => {
+    [SET_MARKERS]: (state, { requestArgs, payload }) => {
       const distance = payload.directions.reduce(
         (totalDistance, direction) =>
           direction.legs.reduce(
@@ -111,10 +105,8 @@ export const routesReducer = createReducer(
           ),
         0
       );
-      const staged = Object.assign({}, state.staged, requestArgs, payload, {
-        distance,
-      });
-      return Object.assign({}, state, { staged });
+      const staged = { ...state.staged, ...requestArgs, ...payload, distance };
+      return { ...state, staged };
     },
   }
 );

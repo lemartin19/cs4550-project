@@ -22,7 +22,7 @@ defmodule ProjectWeb.RouteController do
     render(conn, "index.json", routes: routes)
   end
 
-  def add_marker(conn, %{"points" => points}) do
+  def set_points(conn, %{"points" => points}) do
     directions = DirectionsApi.fetch_directions(points)
     render(conn, "directions.json", %{directions: directions})
   end

@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSessionToken } from '../data/login';
-import { getStagedRoute, postMarker } from '../data/routes';
+import { getStagedRoute, setMarkers } from '../data/routes';
 import { toDirectionsResult } from '../data/toDirectionsResult';
 
 /* global google */
@@ -18,7 +18,7 @@ export const useDirections = ({ map, directionsRenderer }) => {
 
     const clickListener = map.addListener('click', (mapsMouseEvent) => {
       const newPoints = [...(points || []), mapsMouseEvent.latLng.toJSON()];
-      postMarker(newPoints, token).then(dispatch);
+      setMarkers(newPoints, token).then(dispatch);
     });
     return () => google.maps.event.removeListener(clickListener);
   }, [map, points, dispatch]);

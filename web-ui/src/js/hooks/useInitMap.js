@@ -4,6 +4,32 @@ import { useEffect } from 'react';
 
 /* global google */
 
+const createCurrentLocationButton = () => {
+  const currentLocationButton = document.createElement('button');
+  currentLocationButton.id = 'go-to-current-location';
+  currentLocationButton.textContent = 'Pan to Current Location';
+  currentLocationButton.classList.add(
+    'custom-map-control-button',
+    'btn',
+    'btn-primary',
+    'mt-2'
+  );
+  return currentLocationButton;
+};
+
+const createUndoMarkerButton = () => {
+  const undoMarkerButton = document.createElement('button');
+  undoMarkerButton.id = 'undo-marker';
+  undoMarkerButton.textContent = 'Undo marker';
+  undoMarkerButton.classList.add(
+    'custom-map-control-button',
+    'btn',
+    'btn-light',
+    'mt-2'
+  );
+  return undoMarkerButton;
+};
+
 const initMap = () => {
   const map = new google.maps.Map(document.getElementById('Map'), {
     center: { lat: 42.3601, lng: -71.0589 },
@@ -17,18 +43,12 @@ const initMap = () => {
   });
   directionsRenderer.setMap(map);
 
-  const currentLocationButton = document.createElement('button');
-  currentLocationButton.id = 'go-to-current-location';
-  currentLocationButton.textContent = 'Pan to Current Location';
-  currentLocationButton.classList.add(
-    'custom-map-control-button',
-    'btn',
-    'btn-primary',
-    'mt-2'
-  );
+  const currentLocationButton = createCurrentLocationButton();
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(
     currentLocationButton
   );
+  const undoMarkerButton = createUndoMarkerButton();
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(undoMarkerButton);
 
   if (typeof window.initMapCallback === 'function') {
     window.initMapCallback({
@@ -36,6 +56,7 @@ const initMap = () => {
       infoWindow,
       directionsRenderer,
       currentLocationButton,
+      undoMarkerButton,
     });
   }
 };

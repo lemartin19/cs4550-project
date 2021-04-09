@@ -51,6 +51,4 @@ export const useGoToCurrentLocation = ({
       );
     }
   }, [map, infoWindow, currentLocationButton]);
-
-  return { goToCurrentLocation };
 };

@@ -5,6 +5,7 @@ import { useRequireAuth } from './useRequireAuth';
 import { useInitMap } from './useInitMap';
 import { useDirections } from './useDirections';
 import { useGoToCurrentLocation } from './useGoToCurrentLocation';
+import { useUndoMarker } from './useUndoMarker';
 
 export const useMap = () => {
   useRequireAuth(window.location.pathname);
@@ -21,4 +22,5 @@ export const useMap = () => {
   useInitMap();
   useDirections(mapObjects);
   useGoToCurrentLocation(mapObjects);
+  useUndoMarker(mapObjects);
 };
