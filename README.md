@@ -15,10 +15,12 @@ Based on the amount of time in the project, the below stages of development are 
 - [x] View of user's routes with name.
 - [x] Make route feed to view routes of other users.
 - [ ] Add start and end markers to routes.
-- [ ] Add sockets with "Users on route."
+- [x] Add sockets with "Users on route."
 - [ ] Make route undo button.
-- [ ] Allow copying/editing of a route.
+- [x] Allow copying/editing of a route.
 - [ ] Add general route comments.
+- [ ] Limit editing route to route owner.
+- [ ] Limit comment deletion to comment or route owner.
 
 Additional goals as time allows:
 
