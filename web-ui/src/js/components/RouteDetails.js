@@ -9,7 +9,12 @@ import RouteComments from './RouteComments';
 import RouteVisitors from './RouteVisitors';
 
 const RouteDetails = () => {
-  const { route, formattedDistance, toggleIsMetric } = useRouteDetails();
+  const {
+    route,
+    isOwner,
+    formattedDistance,
+    toggleIsMetric,
+  } = useRouteDetails();
   return route ? (
     <Container>
       <Nav />
@@ -27,7 +32,7 @@ const RouteDetails = () => {
         </Form>
       </div>
       <div className="my-4">{route.description}</div>
-      <Link to={`/routes/${route.id}/edit`}>Edit</Link>
+      {isOwner ? <Link to={`/routes/${route.id}/edit`}>Edit</Link> : null}
       <RouteVisitors />
       <RouteComments />
     </Container>

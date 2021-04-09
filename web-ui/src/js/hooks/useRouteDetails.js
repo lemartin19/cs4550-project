@@ -4,7 +4,7 @@ import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { isFilterMetric, toggleIsMetric } from '../data/filters';
-import { getSessionToken } from '../data/login';
+import { getCurrentUserId, getSessionToken } from '../data/login';
 import { fetchRoute, getRoute } from '../data/routes';
 
 export const useRouteDetails = () => {
@@ -14,6 +14,7 @@ export const useRouteDetails = () => {
   const route = useSelector((state) => getRoute(state, id));
   const distance = route ? route.distance : 0;
   const token = useSelector(getSessionToken);
+  const currentUserId = useSelector(getCurrentUserId);
 
   useEffect(() => {
     if (route) return;
@@ -31,6 +32,7 @@ export const useRouteDetails = () => {
 
   return {
     route,
+    isOwner: route && currentUserId === route.user.id,
     formattedDistance,
     toggleIsMetric: () => dispatch(toggleIsMetric()),
   };
