@@ -8,6 +8,28 @@ defmodule ProjectWeb.CommentController do
 
   alias ProjectWeb.Plugs
   plug Plugs.RequireAuth
+  plug :require_comment_or_route_owner when action in [:delete]
+
+  def require_comment_or_route_owner(conn, _args) do
+    comment = conn.params["id"] |> Comments.get_comment!()
+    current_user = conn.assigns[:current_user]
+
+    if comment.user_id != current_user.id &&
+         comment.route.user_id != current_user.id do
+      conn
+      |> put_resp_header(
+        "content-type",
+        "application/json; charset=UTF-8"
+      )
+      |> send_resp(
+        :unauthorized,
+        Jason.encode!(%{"errors" => ["Must be the route or comment owner to do that."]})
+      )
+      |> halt()
+    else
+      conn
+    end
+  end
 
   def index(conn, %{"route_id" => route_id}) do
     comments = Comments.list_comments(route_id)
@@ -33,20 +55,6 @@ defmodule ProjectWeb.CommentController do
 
   def delete(conn, %{"id" => id}) do
     comment = Comments.get_comment!(id)
-    current_user = conn.assigns[:current_user]
-
-    if comment.user_id != current_user.id && comment.route.user_id != current_user.id do
-      conn
-      |> put_resp_header(
-        "content-type",
-        "application/json; charset=UTF-8"
-      )
-      |> send_resp(
-        :unauthorized,
-        Jason.encode!(%{"errors" => ["Must be the route or comment owner to do that."]})
-      )
-      |> halt()
-    end
 
     with {:ok, %Comment{}} <- Comments.delete_comment(comment) do
       send_resp(conn, :no_content, "")
