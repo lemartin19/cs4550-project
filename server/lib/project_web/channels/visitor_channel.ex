@@ -7,6 +7,7 @@ defmodule ProjectWeb.VisitorChannel do
 
   @impl true
   def join("visitor:" <> route_id, _params, socket) do
+    {route_id, _bin} = Integer.parse(route_id)
     socket = assign(socket, :route_id, route_id)
     visitors = get_visitors(route_id)
     {:ok, %{visitors: visitors}, socket}
@@ -17,11 +18,16 @@ defmodule ProjectWeb.VisitorChannel do
     current_user = socket.assigns[:current_user]
     route_id = socket.assigns[:route_id]
 
-    case Repo.get_by(Visitor, user_id: current_user.id)
-         |> add_visitor(current_user.id, route_id) do
+    result =
+      Repo.get_by(Visitor, user_id: current_user.id)
+      |> add_visitor(current_user.id, route_id)
+
+    IO.inspect(result)
+
+    case result do
       {:ok, %Visitor{} = _visitor} ->
         visitors = get_visitors(route_id)
-        broadcast!(socket, "visit:" <> route_id, visitors)
+        broadcast!(socket, "visit:" <> route_id, %{visitors: visitors})
         {:noreply, socket}
 
       {:error, %Ecto.Changeset{} = _changeset} ->
@@ -45,15 +51,15 @@ defmodule ProjectWeb.VisitorChannel do
   end
 
   defp add_visitor(%Visitor{} = user_visitor, _user_id, route_id) do
+    route_id =
+      if user_visitor.route_id == route_id do
+        nil
+      else
+        route_id
+      end
+
     user_visitor
-    |> Visitor.changeset(%{
-      route_id:
-        if user_visitor.route_id == route_id do
-          nil
-        else
-          route_id
-        end
-    })
+    |> Visitor.changeset(%{route_id: route_id})
     |> Repo.update()
   end
 end

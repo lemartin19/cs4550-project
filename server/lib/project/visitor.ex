@@ -13,6 +13,6 @@ defmodule Project.Visitor do
   def changeset(visitor, attrs) do
     visitor
     |> cast(attrs, [:user_id, :route_id])
-    |> validate_required([:user_id, :route_id])
+    |> validate_required([:user_id])
   end
 end

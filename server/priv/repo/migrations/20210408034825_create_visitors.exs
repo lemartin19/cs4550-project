@@ -4,7 +4,7 @@ defmodule Project.Repo.Migrations.CreateVisitors do
   def change do
     create table(:visitors) do
       add :user_id, references(:users, on_delete: :nothing), nul: false
-      add :route_id, references(:routes, on_delete: :nothing), null: false
+      add :route_id, references(:routes, on_delete: :nothing)
 
       timestamps()
     end
