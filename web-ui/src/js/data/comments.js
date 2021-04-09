@@ -25,10 +25,12 @@ export const createComment = ({ route_id, body, location }, token) =>
 export const commentsReducer = createReducer(
   {},
   {
-    [FETCH_COMMENTS]: (state, { payload, requestArgs }) => ({
-      ...state,
-      [requestArgs.route_id]: Object.values(payload),
-    }),
+    [FETCH_COMMENTS]: (state, { payload, requestArgs }) => {
+      return {
+        ...state,
+        [requestArgs.route_id]: Object.values(payload),
+      };
+    },
     [CREATE_COMMENT]: (state, { payload, requestArgs }) => {
       const route = [...state[requestArgs.route_id], payload];
       return {

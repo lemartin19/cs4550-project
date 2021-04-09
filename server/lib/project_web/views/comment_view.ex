@@ -1,5 +1,6 @@
 defmodule ProjectWeb.CommentView do
   use ProjectWeb, :view
+  alias ProjectWeb.UserView
   alias ProjectWeb.CommentView
   alias ProjectWeb.ChangesetView
 
@@ -15,6 +16,7 @@ defmodule ProjectWeb.CommentView do
     %{
       id: comment.id,
       body: comment.body,
+      user: render_one(comment.user, UserView, "user.json"),
       location: comment.location,
       inserted_at: comment.inserted_at
     }

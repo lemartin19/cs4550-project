@@ -5,8 +5,8 @@ defmodule Project.Comments.Comment do
   schema "comments" do
     field :body, :string
     field :location, :string
-    field :user_id, :id
-    field :route_id, :id
+    belongs_to :user, Project.Users.User
+    belongs_to :route, Project.Routes.Route
 
     timestamps()
   end

@@ -7,10 +7,12 @@ import NewComment from './NewComment';
 
 const Comment = ({ user, body, inserted_at }) => (
   <Card>
-    <Card.Text>{body}</Card.Text>
-    <Card.Footer>
-      - {user.name} @ {inserted_at}
-    </Card.Footer>
+    <Card.Body>
+      <p className="mb-1">{body}</p>
+      <small>
+        - {user.name} @ {inserted_at}
+      </small>
+    </Card.Body>
   </Card>
 );
 Comment.displayName = 'Comment';
