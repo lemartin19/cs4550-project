@@ -1,9 +1,9 @@
 'use es6';
 
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { fetchComments, getComments } from '../data/comments';
+import { deleteComment, fetchComments, getComments } from '../data/comments';
 import { getSessionToken } from '../data/login';
 
 export const useRouteComments = () => {
@@ -18,5 +18,7 @@ export const useRouteComments = () => {
     fetchComments(id, token).then(dispatch);
   }, [dispatch, comments, id, token]);
 
-  return { comments };
+  const onDelete = useCallback((id) => deleteComment(id, token).then(dispatch));
+
+  return { comments, onDelete };
 };

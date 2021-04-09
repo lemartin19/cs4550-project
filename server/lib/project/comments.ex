@@ -53,9 +53,12 @@ defmodule Project.Comments do
 
   """
   def create_comment(attrs \\ %{}) do
-    %Comment{}
-    |> Comment.changeset(attrs)
-    |> Repo.insert()
+    case %Comment{}
+         |> Comment.changeset(attrs)
+         |> Repo.insert() do
+      {:ok, %Comment{} = comment} -> {:ok, Repo.preload(comment, :user)}
+      error -> error
+    end
   end
 
   @doc """

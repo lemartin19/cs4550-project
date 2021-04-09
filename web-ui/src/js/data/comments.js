@@ -5,6 +5,7 @@ import { apiFetch } from './api';
 
 const FETCH_COMMENTS = 'FETCH_COMMENTS';
 const CREATE_COMMENT = 'CREATE_COMMENT';
+const DELETE_COMMENT = 'DELETE_COMMENT';
 
 export const fetchComments = (route_id, token) =>
   apiFetch({
@@ -16,10 +17,19 @@ export const fetchComments = (route_id, token) =>
 export const createComment = ({ route_id, body, location }, token) =>
   apiFetch({
     path: `/comments?route_id=${route_id}`,
-    type: FETCH_COMMENTS,
+    type: CREATE_COMMENT,
     token,
     method: 'POST',
     requestArgs: { route_id, body, location },
+  });
+
+export const deleteComment = (id, token) =>
+  apiFetch({
+    path: `/comments/${id}`,
+    type: DELETE_COMMENT,
+    token,
+    method: 'DELETE',
+    requestArgs: { id },
   });
 
 export const commentsReducer = createReducer(
@@ -37,6 +47,15 @@ export const commentsReducer = createReducer(
         ...state,
         [requestArgs.route_id]: route,
       };
+    },
+    [DELETE_COMMENT]: (state, { requestArgs }) => {
+      const newState = {};
+      Object.keys(state).forEach((id) => {
+        newState[id] = state[id].filter(
+          (comment) => comment.id !== requestArgs.id
+        );
+      });
+      return newState;
     },
   }
 );
