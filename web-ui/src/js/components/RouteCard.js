@@ -6,7 +6,7 @@ import { deleteRoute } from '../data/routes';
 import { useRouteCard } from '../hooks/useRouteCard';
 
 const RouteCard = ({ token, id, name, description, distance, user }) => {
-  const { dispatch, formattedDistance } = useRouteCard(distance);
+  const { dispatch, formattedDistance, currentUserId } = useRouteCard(distance);
   return (
     <Card className="m-4">
       <div className="m-4">
@@ -20,10 +20,14 @@ const RouteCard = ({ token, id, name, description, distance, user }) => {
       </div>
       <Card.Footer>
         <Card.Link href={`/routes/${id}`}>Show</Card.Link>
-        <Card.Link href={`/routes/${id}/edit`}>Edit</Card.Link>
-        <Card.Link onClick={() => deleteRoute(id, token).then(dispatch)}>
-          Delete
-        </Card.Link>
+        {currentUserId === user.id ? (
+          <React.Fragment>
+            <Card.Link href={`/routes/${id}/edit`}>Edit</Card.Link>
+            <Card.Link onClick={() => deleteRoute(id, token).then(dispatch)}>
+              Delete
+            </Card.Link>
+          </React.Fragment>
+        ) : null}
       </Card.Footer>
     </Card>
   );

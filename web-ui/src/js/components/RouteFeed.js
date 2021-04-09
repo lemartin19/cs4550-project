@@ -4,18 +4,20 @@ import React from 'react';
 import { Button, Container } from 'react-bootstrap';
 import Nav from './Nav';
 import RouteCard from './RouteCard';
+import MaybeError from './MaybeError';
 import FeedFilters from './FeedFilters';
 import { useRouteFeed } from '../hooks/useRouteFeed';
 
 const RouteFeed = () => {
-  const { token, routes } = useRouteFeed();
+  const { token, routes, error } = useRouteFeed();
   return (
     <Container>
       <Nav />
       <h1>Route Feed</h1>
-      <Button variant="primary" href="/new" className="mt-2">
+      <Button variant="primary" href="/new" className="my-2">
         New route
       </Button>
+      <MaybeError error={error} />
       <FeedFilters />
       <div className="my-4">
         {routes.length

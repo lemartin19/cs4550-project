@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useQueryParams } from '../hooks/useQueryParams';
 import { getSessionToken } from '../data/login';
 import { fetchRoutes, getRoutes, getRoutesAreLoaded } from '../data/routes';
 
@@ -10,6 +11,7 @@ export const useRouteFeed = () => {
   const areLoaded = useSelector(getRoutesAreLoaded);
   const routes = useSelector(getRoutes);
   const token = useSelector(getSessionToken);
+  const { error } = useQueryParams();
 
   useEffect(() => {
     if (areLoaded) return;
@@ -17,5 +19,11 @@ export const useRouteFeed = () => {
     fetchRoutes(token).then(dispatch);
   }, [routes, areLoaded]);
 
-  return { token, areLoaded, routes: Object.values(routes) };
+  return {
+    token,
+    areLoaded,
+    routes: Object.values(routes),
+    error:
+      error === 'unauthorized' ? 'You are not authorized to do that' : error,
+  };
 };
