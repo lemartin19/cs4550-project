@@ -1,5 +1,6 @@
 'use es6';
 
+import { Socket } from 'phoenix';
 import { createReducer } from '@reduxjs/toolkit';
 import { LOCAL_STORAGE_SESSION_KEY } from '../constants/config';
 import { apiFetch } from './api';
@@ -30,6 +31,12 @@ const saveSession = (session) => {
   }
 };
 
+const buildSocket = ({ token }) => {
+  const socket = new Socket('/socket', { params: { token } });
+  socket.connect();
+  return socket;
+};
+
 const loadSession = () => {
   let sessionJson;
   try {
@@ -37,31 +44,38 @@ const loadSession = () => {
   } catch (error) {
     console.log('local storage disabled - could not load session');
   }
-  if (!sessionJson) return null;
+  if (!sessionJson) return { socket: null, session: null };
 
   const session = JSON.parse(sessionJson);
   const age = Date.now() - session.time;
   const hours = 60 * 60 * 1000;
 
-  return age < 24 * hours ? session : null;
+  return age < 24 * hours
+    ? { socket: buildSocket(session), session }
+    : { socket: null, session: null };
 };
 
-export const sessionReducer = createReducer(loadSession(), {
+export const loginReducer = createReducer(loadSession(), {
   [LOGIN]: (state, { payload }) => {
     saveSession(payload);
-    return payload;
+    return { socket: buildSocket(payload), session: payload };
   },
   [LOGOUT]: () => {
     saveSession(null);
-    return null;
+    socket.channel('logout').join();
+    return { socket: null, session: null };
   },
   [CREATE_USER]: (state, { payload }) => {
     saveSession(payload);
-    return payload;
+    return { socket: buildSocket(payload), session: payload };
   },
 });
 
-export const getSession = (state) => state.session;
+export const getSession = (state) => state.login;
+export const getCurrentUserId = (state) =>
+  state.login.session && state.login.session.id;
 export const getCurrentUserName = (state) =>
-  state.session && state.session.name;
-export const getSessionToken = (state) => state.session && state.session.token;
+  state.login.session && state.login.session.name;
+export const getSessionToken = (state) =>
+  state.login.session && state.login.session.token;
+export const getSocket = (state) => state.login.socket;

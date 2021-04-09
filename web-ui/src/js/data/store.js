@@ -3,12 +3,14 @@
 import { combineReducers, createStore } from 'redux';
 import { filtersReducer } from './filters';
 import { routesReducer } from './routes';
-import { sessionReducer } from './login';
+import { loginReducer } from './login';
+import { channelReducer } from './visitors';
 
 const rootReducer = combineReducers({
+  channel: channelReducer,
   filters: filtersReducer,
   routes: routesReducer,
-  session: sessionReducer,
+  login: loginReducer,
 });
 
 export default createStore(rootReducer);

@@ -5,6 +5,7 @@ import { Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useRouteDetails } from '../hooks/useRouteDetails';
 import Nav from './Nav';
+import RouteVisitors from './RouteVisitors';
 
 const RouteDetails = () => {
   const { route, formattedDistance, toggleIsMetric } = useRouteDetails();
@@ -25,6 +26,7 @@ const RouteDetails = () => {
         </Form>
       </div>
       <div className="my-4">{route.description}</div>
+      <RouteVisitors />
       <Link href={`/routes/${route.id}/edit`}>Edit</Link>
     </Container>
   ) : null;
