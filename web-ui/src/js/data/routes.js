@@ -123,3 +123,5 @@ export const getRoutesAreLoaded = (state) => state.routes.isLoaded;
 export const getRoutes = (state) => state.routes.saved;
 export const getStagedRoute = (state) => state.routes.staged;
 export const getRoute = (state, id) => state.routes.saved[id];
+export const getRouteOwnerId = (state, id) =>
+  state.routes.saved[id] && state.routes.saved[id].user.id;

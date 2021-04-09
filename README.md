@@ -18,9 +18,9 @@ Based on the amount of time in the project, the below stages of development are 
 - [x] Add sockets with "Users on route."
 - [ ] Make route undo button.
 - [x] Allow copying/editing of a route.
-- [ ] Add general route comments.
+- [x] Add general route comments.
 - [ ] Limit editing route to route owner.
-- [ ] Limit comment deletion to comment or route owner.
+- [x] Limit comment deletion to comment or route owner.
 
 Additional goals as time allows:
 

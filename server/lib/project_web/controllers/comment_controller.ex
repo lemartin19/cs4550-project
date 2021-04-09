@@ -33,6 +33,20 @@ defmodule ProjectWeb.CommentController do
 
   def delete(conn, %{"id" => id}) do
     comment = Comments.get_comment!(id)
+    current_user = conn.assigns[:current_user]
+
+    if comment.user_id != current_user.id && comment.route.user_id != current_user.id do
+      conn
+      |> put_resp_header(
+        "content-type",
+        "application/json; charset=UTF-8"
+      )
+      |> send_resp(
+        :unauthorized,
+        Jason.encode!(%{"errors" => ["Must be the route or comment owner to do that."]})
+      )
+      |> halt()
+    end
 
     with {:ok, %Comment{}} <- Comments.delete_comment(comment) do
       send_resp(conn, :no_content, "")

@@ -6,7 +6,14 @@ import { Button, Card } from 'react-bootstrap';
 import { useRouteComments } from '../hooks/useRouteComments';
 import NewComment from './NewComment';
 
-const Comment = ({ id, user, body, inserted_at, onDelete }) => (
+const Comment = ({
+  id,
+  user,
+  body,
+  inserted_at,
+  onDelete,
+  ownsRouteOrComment,
+}) => (
   <Card className="m-1">
     <Card.Body>
       <p className="mb-1">{body}</p>
@@ -14,14 +21,16 @@ const Comment = ({ id, user, body, inserted_at, onDelete }) => (
         <small>
           - {user.name} @ {moment(inserted_at).format('MMMM D, YYYY h:mm a')}
         </small>
-        <Button
-          variant="outline-danger"
-          size="sm"
-          onClick={() => onDelete(id)}
-          className="ml-2"
-        >
-          Delete
-        </Button>
+        {ownsRouteOrComment(user.id) ? (
+          <Button
+            variant="outline-danger"
+            size="sm"
+            onClick={() => onDelete(id)}
+            className="ml-2"
+          >
+            Delete
+          </Button>
+        ) : null}
       </div>
     </Card.Body>
   </Card>
@@ -29,7 +38,7 @@ const Comment = ({ id, user, body, inserted_at, onDelete }) => (
 Comment.displayName = 'Comment';
 
 const RouteComments = () => {
-  const { comments, onDelete } = useRouteComments();
+  const { comments, onDelete, ownsRouteOrComment } = useRouteComments();
   return (
     <div className="my-4">
       <h4>Comments</h4>
@@ -41,7 +50,12 @@ const RouteComments = () => {
                 moment(b.inserted_at).format('YYYYMMDDHHmmSS')
             )
             .map((comment) => (
-              <Comment {...comment} onDelete={onDelete} key={comment.id} />
+              <Comment
+                {...comment}
+                onDelete={onDelete}
+                ownsRouteOrComment={ownsRouteOrComment}
+                key={comment.id}
+              />
             ))
         : 'No comments on this route'}
       <NewComment />
