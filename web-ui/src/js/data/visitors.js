@@ -11,11 +11,11 @@ export const joinVisitorChannel = (dispatch, routeId, socket) => {
   const channel = socket.channel(`visitor:${routeId}`);
   channel
     .join()
-    .receive('ok', (visitors) =>
+    .receive('ok', ({ visitors }) =>
       dispatch({
         type: FETCH_VISITORS,
         requestArgs: { channel },
-        payload: { visitors },
+        payload: visitors,
       })
     )
     .receive('error', () =>

@@ -26,8 +26,8 @@ const RouteDetails = () => {
         </Form>
       </div>
       <div className="my-4">{route.description}</div>
-      <RouteVisitors />
       <Link to={`/routes/${route.id}/edit`}>Edit</Link>
+      <RouteVisitors />
     </Container>
   ) : null;
 };

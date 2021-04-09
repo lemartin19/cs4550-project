@@ -5,5 +5,5 @@ import { getVisitors } from '../data/visitors';
 
 export const useCurrentVisitors = () => {
   const visitors = useSelector(getVisitors);
-  return { visitors };
+  return { visitors: visitors.map(({ name }) => name) };
 };

@@ -8,7 +8,8 @@ defmodule ProjectWeb.VisitorChannel do
   @impl true
   def join("visitor:" <> route_id, _params, socket) do
     socket = assign(socket, :route_id, route_id)
-    {:ok, socket}
+    visitors = get_visitors(route_id)
+    {:ok, %{visitors: visitors}, socket}
   end
 
   @impl true
@@ -16,23 +17,25 @@ defmodule ProjectWeb.VisitorChannel do
     current_user = socket.assigns[:current_user]
     route_id = socket.assigns[:route_id]
 
-    case Repo.get_by(Visitor, current_user.id)
+    case Repo.get_by(Visitor, user_id: current_user.id)
          |> add_visitor(current_user.id, route_id) do
       {:ok, %Visitor{} = _visitor} ->
-        query = from v in "visitors", where: v.route_id == ^route_id
-
-        visitors =
-          Repo.all(query)
-          |> Repo.preload(:user)
-          |> Enum.map(fn visitor -> visitor.user end)
-
+        visitors = get_visitors(route_id)
         broadcast!(socket, "visit:" <> route_id, visitors)
-
         {:noreply, socket}
 
       {:error, %Ecto.Changeset{} = _changeset} ->
         {:reply, :error, socket}
     end
+  end
+
+  defp get_visitors(route_id) do
+    query = from v in Visitor, where: v.route_id == ^route_id
+
+    Repo.all(query)
+    |> Repo.preload(:user)
+    |> Enum.map(fn visitor -> visitor.user end)
+    |> Enum.map(fn user -> %{id: user.id, name: user.name} end)
   end
 
   defp add_visitor(nil, user_id, route_id) do
