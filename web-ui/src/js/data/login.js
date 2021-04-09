@@ -60,7 +60,7 @@ export const loginReducer = createReducer(loadSession(), {
     saveSession(payload);
     return { socket: buildSocket(payload), session: payload };
   },
-  [LOGOUT]: () => {
+  [LOGOUT]: ({ socket }) => {
     saveSession(null);
     socket.channel('logout').join();
     return { socket: null, session: null };

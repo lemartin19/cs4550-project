@@ -27,7 +27,7 @@ const RouteDetails = () => {
       </div>
       <div className="my-4">{route.description}</div>
       <RouteVisitors />
-      <Link href={`/routes/${route.id}/edit`}>Edit</Link>
+      <Link to={`/routes/${route.id}/edit`}>Edit</Link>
     </Container>
   ) : null;
 };

@@ -11,7 +11,7 @@ export const joinVisitorChannel = (dispatch, routeId, socket) => {
   const channel = socket.channel(`visitors:${routeId}`);
   channel
     .join()
-    .receive('ok', () =>
+    .receive('ok', (visitors) =>
       dispatch({
         type: FETCH_VISITORS,
         requestArgs: { channel },

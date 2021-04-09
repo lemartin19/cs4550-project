@@ -1,6 +1,6 @@
 'use es6';
 
-import { useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { getCurrentUserId, getSocket } from '../data/login';
