@@ -8,7 +8,7 @@ const ADD_VISITOR = 'ADD_VISITOR';
 const LEAVE_CHANNEL = 'LEAVE_CHANNEL';
 
 export const joinVisitorChannel = (dispatch, routeId, socket) => {
-  const channel = socket.channel(`visitors:${routeId}`);
+  const channel = socket.channel(`visitor:${routeId}`);
   channel
     .join()
     .receive('ok', (visitors) =>

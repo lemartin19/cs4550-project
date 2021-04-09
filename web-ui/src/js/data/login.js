@@ -32,7 +32,9 @@ const saveSession = (session) => {
 };
 
 const buildSocket = ({ token }) => {
-  const socket = new Socket('/socket', { params: { token } });
+  const socket = new Socket('wss://project-api.seablue.site/socket', {
+    params: { token },
+  });
   socket.connect();
   return socket;
 };

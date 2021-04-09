@@ -29,7 +29,9 @@ export const useRouteVisitors = () => {
     .map((visitor) => visitor.id)
     .includes(currentUserId);
 
-  const onClick = useCallback(() => visitRoute(channel), [channel]);
+  const onClick = useCallback(() => (channel ? visitRoute(channel) : null), [
+    channel,
+  ]);
 
   return { isOnRoute, onClick };
 };
