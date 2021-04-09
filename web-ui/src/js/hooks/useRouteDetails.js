@@ -1,11 +1,11 @@
 'use es6';
 
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { isFilterMetric, toggleIsMetric } from '../data/filters';
 import { getCurrentUserId, getSessionToken } from '../data/login';
-import { fetchRoute, getRoute } from '../data/routes';
+import { deleteRoute, fetchRoute, getRoute } from '../data/routes';
 
 export const useRouteDetails = () => {
   const dispatch = useDispatch();
@@ -30,10 +30,17 @@ export const useRouteDetails = () => {
     [distance, isMetric]
   );
 
+  const onDelete = useCallback(() => deleteRoute(id, token).then(dispatch), [
+    dispatch,
+    id,
+    token,
+  ]);
+
   return {
     route,
     isOwner: route && currentUserId === route.user.id,
     formattedDistance,
     toggleIsMetric: () => dispatch(toggleIsMetric()),
+    onDelete,
   };
 };

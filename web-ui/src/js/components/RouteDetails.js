@@ -1,7 +1,7 @@
 'use es6';
 
 import React from 'react';
-import { Container, Form } from 'react-bootstrap';
+import { Button, Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useRouteDetails } from '../hooks/useRouteDetails';
 import Nav from './Nav';
@@ -14,6 +14,7 @@ const RouteDetails = () => {
     isOwner,
     formattedDistance,
     toggleIsMetric,
+    onDelete,
   } = useRouteDetails();
   return route ? (
     <Container>
@@ -31,8 +32,15 @@ const RouteDetails = () => {
           ></Form.Check>
         </Form>
       </div>
-      <div className="my-4">{route.description}</div>
-      {isOwner ? <Link to={`/routes/${route.id}/edit`}>Edit</Link> : null}
+      <div className="my-2">{route.description}</div>
+      {isOwner ? (
+        <div className="d-flex align-items-center">
+          <Link to={`/routes/${route.id}/edit`}>Edit</Link>
+          <Button variant="link" onClick={onDelete}>
+            Delete
+          </Button>
+        </div>
+      ) : null}
       <RouteVisitors />
       <RouteComments />
     </Container>

@@ -2,11 +2,10 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { deleteRoute } from '../data/routes';
 import { useRouteCard } from '../hooks/useRouteCard';
 
 const RouteCard = ({ token, id, name, description, distance, user }) => {
-  const { dispatch, formattedDistance, currentUserId } = useRouteCard(distance);
+  const { formattedDistance, currentUserId, onDelete } = useRouteCard(distance);
   return (
     <Card className="m-4">
       <div className="m-4">
@@ -23,9 +22,7 @@ const RouteCard = ({ token, id, name, description, distance, user }) => {
         {currentUserId === user.id ? (
           <React.Fragment>
             <Card.Link href={`/routes/${id}/edit`}>Edit</Card.Link>
-            <Card.Link onClick={() => deleteRoute(id, token).then(dispatch)}>
-              Delete
-            </Card.Link>
+            <Card.Link onClick={onDelete}>Delete</Card.Link>
           </React.Fragment>
         ) : null}
       </Card.Footer>
