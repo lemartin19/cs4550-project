@@ -1,6 +1,7 @@
 defmodule ProjectWeb.CommentView do
   use ProjectWeb, :view
   alias ProjectWeb.CommentView
+  alias ProjectWeb.ChangesetView
 
   def render("index.json", %{comments: comments}) do
     %{data: render_many(comments, CommentView, "comment.json")}
@@ -11,8 +12,15 @@ defmodule ProjectWeb.CommentView do
   end
 
   def render("comment.json", %{comment: comment}) do
-    %{id: comment.id,
+    %{
+      id: comment.id,
       body: comment.body,
-      location: comment.location}
+      location: comment.location,
+      inserted_at: comment.inserted_at
+    }
+  end
+
+  def render("error.json", %{changeset: changeset}) do
+    render_one(changeset, ChangesetView, "error.json")
   end
 end

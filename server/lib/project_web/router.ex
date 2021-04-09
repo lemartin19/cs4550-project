@@ -20,6 +20,7 @@ defmodule ProjectWeb.Router do
     resources "/routes", RouteController, except: [:new, :edit]
     resources "/users", UserController, except: [:new, :edit]
     resources "/session", SessionController, only: [:create]
+    resources "/comments", CommentController, only: [:index, :create, :delete]
   end
 
   # Enables LiveDashboard only for development

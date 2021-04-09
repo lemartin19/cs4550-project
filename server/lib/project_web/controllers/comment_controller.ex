@@ -6,29 +6,25 @@ defmodule ProjectWeb.CommentController do
 
   action_fallback ProjectWeb.FallbackController
 
+  alias ProjectWeb.Plugs
+  plug Plugs.RequireAuth
+
   def index(conn, %{"route_id" => route_id}) do
     comments = Comments.list_comments(route_id)
     render(conn, "index.json", comments: comments)
   end
 
   def create(conn, %{"comment" => comment_params}) do
-    with {:ok, %Comment{} = comment} <- Comments.create_comment(comment_params) do
-      conn
-      |> put_status(:created)
-      |> render("show.json", comment: comment)
-    end
-  end
+    case Comments.create_comment(comment_params) do
+      {:ok, %Comment{} = comment} ->
+        conn
+        |> put_status(:created)
+        |> render("show.json", comment: comment)
 
-  def show(conn, %{"id" => id}) do
-    comment = Comments.get_comment!(id)
-    render(conn, "show.json", comment: comment)
-  end
-
-  def update(conn, %{"id" => id, "comment" => comment_params}) do
-    comment = Comments.get_comment!(id)
-
-    with {:ok, %Comment{} = comment} <- Comments.update_comment(comment, comment_params) do
-      render(conn, "show.json", comment: comment)
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_status(:bad_request)
+        |> render("error.json", changeset: changeset)
     end
   end
 
