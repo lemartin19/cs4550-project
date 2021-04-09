@@ -19,7 +19,9 @@ defmodule Project.Comments do
   """
   def list_comments(route_id) do
     query = from c in Comment, where: c.route_id == ^route_id
+
     Repo.all(query)
+    |> Repo.preload(:user)
   end
 
   @doc """
@@ -54,24 +56,6 @@ defmodule Project.Comments do
     %Comment{}
     |> Comment.changeset(attrs)
     |> Repo.insert()
-  end
-
-  @doc """
-  Updates a comment.
-
-  ## Examples
-
-      iex> update_comment(comment, %{field: new_value})
-      {:ok, %Comment{}}
-
-      iex> update_comment(comment, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_comment(%Comment{} = comment, attrs) do
-    comment
-    |> Comment.changeset(attrs)
-    |> Repo.update()
   end
 
   @doc """

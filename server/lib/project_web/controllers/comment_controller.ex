@@ -24,14 +24,6 @@ defmodule ProjectWeb.CommentController do
     render(conn, "show.json", comment: comment)
   end
 
-  def update(conn, %{"id" => id, "comment" => comment_params}) do
-    comment = Comments.get_comment!(id)
-
-    with {:ok, %Comment{} = comment} <- Comments.update_comment(comment, comment_params) do
-      render(conn, "show.json", comment: comment)
-    end
-  end
-
   def delete(conn, %{"id" => id}) do
     comment = Comments.get_comment!(id)
 
