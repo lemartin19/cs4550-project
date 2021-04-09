@@ -5,6 +5,7 @@ import { Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useRouteDetails } from '../hooks/useRouteDetails';
 import Nav from './Nav';
+import RouteComments from './RouteComments';
 import RouteVisitors from './RouteVisitors';
 
 const RouteDetails = () => {
@@ -28,6 +29,7 @@ const RouteDetails = () => {
       <div className="my-4">{route.description}</div>
       <Link to={`/routes/${route.id}/edit`}>Edit</Link>
       <RouteVisitors />
+      <RouteComments />
     </Container>
   ) : null;
 };
