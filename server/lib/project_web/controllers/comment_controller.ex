@@ -14,7 +14,10 @@ defmodule ProjectWeb.CommentController do
     render(conn, "index.json", comments: comments)
   end
 
-  def create(conn, %{"comment" => comment_params}) do
+  def create(conn, comment_params) do
+    current_user = conn.assigns[:current_user]
+    comment_params = Map.put(comment_params, "user_id", current_user.id)
+
     case Comments.create_comment(comment_params) do
       {:ok, %Comment{} = comment} ->
         conn

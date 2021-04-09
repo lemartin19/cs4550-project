@@ -3,6 +3,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { useRouteComments } from '../hooks/useRouteComments';
+import NewComment from './NewComment';
 
 const Comment = ({ user, body, inserted_at }) => (
   <Card>
@@ -22,6 +23,7 @@ const RouteComments = () => {
       {comments && comments.length
         ? comments.map((comment) => <Comment {...comment} key={comment.id} />)
         : 'No comments on this route'}
+      <NewComment />
     </div>
   );
 };

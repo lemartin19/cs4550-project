@@ -8,11 +8,10 @@ const CREATE_COMMENT = 'CREATE_COMMENT';
 
 export const fetchComments = (route_id, token) =>
   apiFetch({
-    path: `/comments`,
+    path: `/comments?route_id=${route_id}`,
     type: FETCH_COMMENTS,
     token,
-    requestArgs: { route_id },
-  });
+  }).then((action) => ({ ...action, requestArgs: { route_id } }));
 
 export const createComment = ({ route_id, body, location }, token) =>
   apiFetch({
