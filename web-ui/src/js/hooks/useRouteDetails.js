@@ -2,13 +2,14 @@
 
 import { useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { isFilterMetric, toggleIsMetric } from '../data/filters';
 import { getCurrentUserId, getSessionToken } from '../data/login';
 import { deleteRoute, fetchRoute, getRoute } from '../data/routes';
 
 export const useRouteDetails = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { id } = useParams();
   const isMetric = useSelector(isFilterMetric);
   const route = useSelector((state) => getRoute(state, id));
@@ -30,11 +31,14 @@ export const useRouteDetails = () => {
     [distance, isMetric]
   );
 
-  const onDelete = useCallback(() => deleteRoute(id, token).then(dispatch), [
-    dispatch,
-    id,
-    token,
-  ]);
+  const onDelete = useCallback(
+    () =>
+      deleteRoute(id, token).then((action) => {
+        dispatch(action);
+        history.push('/');
+      }),
+    [dispatch, id, token]
+  );
 
   return {
     route,
