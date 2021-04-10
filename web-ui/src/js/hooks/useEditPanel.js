@@ -35,6 +35,7 @@ export const useEditPanel = () => {
           dispatch(action);
           setIsLoading(false);
           history.push(`/routes/${action.payload.id}`);
+          setField('error', null);
         })
         .catch(({ message }) => {
           setIsLoading(false);

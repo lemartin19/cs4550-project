@@ -19,7 +19,7 @@ config :project, Project.Repo,
 # which you should run after static files are built and
 # before starting your production server.
 config :project, ProjectWeb.Endpoint,
-  check_origin: ["project.seablue.site"],
+  check_origin: ["https://project.seablue.site"],
   url: [host: "project-api.seablue.site", port: 5643],
   https: [
     port: 5643,
