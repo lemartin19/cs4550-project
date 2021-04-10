@@ -6,7 +6,7 @@ import EditRoute from './EditRoute';
 import Login from './Login';
 import Map from './Map';
 import Register from './Register';
-import RouteDetails from './RouteDetails';
+import ShowRoute from './ShowRoute';
 import RouteFeed from './RouteFeed';
 
 const App = () => (
@@ -26,7 +26,7 @@ const App = () => (
           <EditRoute />
         </Route>
         <Route path="/routes/:id">
-          <RouteDetails />
+          <ShowRoute />
         </Route>
         <Route path="/">
           <RouteFeed />

@@ -2,14 +2,12 @@
 
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
 import { isFilterMetric } from '../data/filters';
 import { getCurrentUserId, getSessionToken } from '../data/login';
 import { deleteRoute } from '../data/routes';
 
-export const useRouteCard = (distance = 0) => {
+export const useRouteCard = (id, distance = 0) => {
   const dispatch = useDispatch();
-  const { id } = useParams();
   const currentUserId = useSelector(getCurrentUserId);
   const isMetric = useSelector(isFilterMetric);
   const token = useSelector(getSessionToken);
@@ -28,5 +26,9 @@ export const useRouteCard = (distance = 0) => {
     token,
   ]);
 
-  return { formattedDistance, currentUserId, onDelete };
+  return {
+    formattedDistance,
+    currentUserId,
+    onDelete,
+  };
 };

@@ -42,5 +42,6 @@ export const useRouteDetails = () => {
     formattedDistance,
     toggleIsMetric: () => dispatch(toggleIsMetric()),
     onDelete,
+    polyline: route && route.directions[0].overview_polyline.points,
   };
 };

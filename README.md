@@ -25,7 +25,7 @@ Based on the amount of time in the project, the below stages of development are 
 Additional goals as time allows:
 
 - [x] Add distance on showing route in index page.
-- [ ] Add static image of route to details and feed (https://developers.google.com/maps/documentation/maps-static/start#Paths).
+- [x] Add static image of route to details and feed (https://developers.google.com/maps/documentation/maps-static/start#Paths).
 - [ ] Add filters in route feeds:
   - [ ] owner
   - [ ] distance

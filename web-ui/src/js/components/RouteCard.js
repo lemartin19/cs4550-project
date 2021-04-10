@@ -4,8 +4,11 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import { useRouteCard } from '../hooks/useRouteCard';
 
-const RouteCard = ({ token, id, name, description, distance, user }) => {
-  const { formattedDistance, currentUserId, onDelete } = useRouteCard(distance);
+const RouteCard = ({ id, name, description, distance, user }) => {
+  const { formattedDistance, currentUserId, onDelete } = useRouteCard(
+    id,
+    distance
+  );
   return (
     <Card className="m-4">
       <div className="m-4">
