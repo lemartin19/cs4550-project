@@ -2,7 +2,7 @@
 
 import { Socket } from 'phoenix';
 import { createReducer } from '@reduxjs/toolkit';
-import { LOCAL_STORAGE_SESSION_KEY } from '../constants/config';
+import { isQa, LOCAL_STORAGE_SESSION_KEY } from '../constants/config';
 import { apiFetch } from './api';
 import { CREATE_USER } from './users';
 
@@ -32,9 +32,12 @@ const saveSession = (session) => {
 };
 
 const buildSocket = ({ token }) => {
-  const socket = new Socket('wss://project-api.seablue.site/socket', {
-    params: { token },
-  });
+  const socket = new Socket(
+    `wss://project-api${isQa() ? '.qa' : ''}.seablue.site/socket`,
+    {
+      params: { token },
+    }
+  );
   socket.connect();
   return socket;
 };

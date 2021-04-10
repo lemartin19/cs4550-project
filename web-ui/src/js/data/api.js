@@ -1,6 +1,10 @@
 'use es6';
 
-const API_BASE = 'https://project-api.seablue.site/api/v1';
+import { isQa } from '../constants/config';
+
+const API_BASE = isQa()
+  ? 'https://project-api.qa.seablue.site/api/v1'
+  : 'https://project-api.seablue.site/api/v1';
 
 export const apiFetch = ({ path, type, token, method, requestArgs }) =>
   fetch(`${API_BASE}${path}`, {

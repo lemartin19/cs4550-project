@@ -14,8 +14,8 @@ config :project, ProjectWeb.Endpoint,
   https: [
     port: 443,
     cipher_suite: :strong,
-    certfile: "/etc/letsencrypt/live/seablue.site/fullchain.pem",
-    keyfile: "/etc/letsencrypt/live/seablue.site/privkey.pem"
+    certfile: Path.expand("/etc/letsencrypt/live/project.seablue.site/fullchain.pem", __DIR__),
+    keyfile: Path.expand("/etc/letsencrypt/live/project.seablue.site/privkey.pem", __DIR__)
   ],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json"

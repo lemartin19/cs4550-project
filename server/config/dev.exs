@@ -18,8 +18,8 @@ config :project, Project.Repo,
 config :project, ProjectWeb.Endpoint,
   https: [
     port: 4001,
-    certfile: Path.expand("/etc/letsencrypt/live/project.seablue.site/fullchain.pem", __DIR__),
-    keyfile: Path.expand("/etc/letsencrypt/live/project.seablue.site/privkey.pem", __DIR__)
+    certfile: Path.expand("/etc/letsencrypt/live/project.qa.seablue.site/fullchain.pem", __DIR__),
+    keyfile: Path.expand("/etc/letsencrypt/live/project.qa.seablue.site/privkey.pem", __DIR__)
   ],
   debug_errors: true,
   code_reloader: true,
