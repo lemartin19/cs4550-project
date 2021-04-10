@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useQueryParams } from '../hooks/useQueryParams';
 import { getSessionToken } from '../data/login';
 import { fetchRoutes, getRoutes, getRoutesAreLoaded } from '../data/routes';
-import { getOwnerFilter } from '../data/filters';
+import { getDistanceFilter, getOwnerFilter } from '../data/filters';
 
 export const useRouteFeed = () => {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ export const useRouteFeed = () => {
   const routes = useSelector(getRoutes);
   const token = useSelector(getSessionToken);
   const ownerFilter = useSelector(getOwnerFilter);
+  const distanceFilter = useSelector(getDistanceFilter);
   const { error } = useQueryParams();
 
   useEffect(() => {
@@ -24,9 +25,15 @@ export const useRouteFeed = () => {
   return {
     token,
     areLoaded,
-    routes: Object.values(routes).filter((route) =>
-      route.user.name.includes(ownerFilter)
-    ),
+    routes: Object.values(routes)
+      .filter((route) => route.user.name.includes(ownerFilter))
+      .filter(
+        (route) =>
+          distanceFilter.length === 0 ||
+          distanceFilter.some(
+            ({ min, max }) => min <= route.distance && max >= route.distance
+          )
+      ),
     error:
       error === 'unauthorized' ? 'You are not authorized to do that' : error,
   };

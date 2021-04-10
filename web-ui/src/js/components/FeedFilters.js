@@ -3,7 +3,11 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { setOwnerFilter, toggleIsMetric } from '../data/filters';
+import {
+  setDistanceFilter,
+  setOwnerFilter,
+  toggleIsMetric,
+} from '../data/filters';
 
 const FeedFilters = () => {
   const dispatch = useDispatch();
@@ -23,6 +27,23 @@ const FeedFilters = () => {
           onChange={({ target }) => dispatch(setOwnerFilter(target.value))}
           className="mx-2"
         />
+        <Form.Control
+          as="select"
+          id="distance"
+          onChange={({ target }) => {
+            dispatch(setDistanceFilter(target.selectedOptions));
+          }}
+          className="mx-2 "
+        >
+          <option value="0-X">no filter</option>
+          <option value="0-5000">less than a 5k</option>
+          <option value="5000-10000">between a 5k and 10k</option>
+          <option value="10000-21100">between a 10k and half-marathon</option>
+          <option value="21100-42200">
+            between a half-marathon and a marathon
+          </option>
+          <option value="42200-X">ultra marathon</option>
+        </Form.Control>
       </Form>
     </div>
   );

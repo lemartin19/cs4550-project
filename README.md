@@ -28,7 +28,7 @@ Additional goals as time allows:
 - [x] Add static image of route to details and feed (https://developers.google.com/maps/documentation/maps-static/start#Paths).
 - [ ] Add filters in route feeds:
   - [x] owner
-  - [ ] distance
+  - [x] distance
   - [ ] location
 - [ ] Limit the API to only return a certain number of routes at the index.
 - [ ] Make route meetup events with socket.
