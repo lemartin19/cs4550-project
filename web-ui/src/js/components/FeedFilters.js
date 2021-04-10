@@ -3,7 +3,7 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { toggleIsMetric } from '../data/filters';
+import { setOwnerFilter, toggleIsMetric } from '../data/filters';
 
 const FeedFilters = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,14 @@ const FeedFilters = () => {
           id="units"
           label="Imperial / Metric"
           onClick={() => dispatch(toggleIsMetric())}
-        ></Form.Check>
+        />
+        <Form.Control
+          type="text"
+          id="owner"
+          placeholder="Owner"
+          onChange={({ target }) => dispatch(setOwnerFilter(target.value))}
+          className="mx-2"
+        />
       </Form>
     </div>
   );

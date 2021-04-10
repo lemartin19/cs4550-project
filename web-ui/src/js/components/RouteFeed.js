@@ -24,7 +24,7 @@ const RouteFeed = () => {
           ? routes.map((route) => (
               <RouteCard token={token} {...route} key={route.id} />
             ))
-          : 'No routes to view'}
+          : 'No routes to view (try updating your filters or reloading the page)'}
       </div>
     </Container>
   );

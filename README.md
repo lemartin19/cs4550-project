@@ -27,7 +27,7 @@ Additional goals as time allows:
 - [x] Add distance on showing route in index page.
 - [x] Add static image of route to details and feed (https://developers.google.com/maps/documentation/maps-static/start#Paths).
 - [ ] Add filters in route feeds:
-  - [ ] owner
+  - [x] owner
   - [ ] distance
   - [ ] location
 - [ ] Limit the API to only return a certain number of routes at the index.
