@@ -8,6 +8,8 @@ const ADD_VISITOR = 'ADD_VISITOR';
 const LEAVE_CHANNEL = 'LEAVE_CHANNEL';
 
 export const joinVisitorChannel = (dispatch, routeId, socket) => {
+  if (!socket) return;
+
   const channel = socket.channel(`visitor:${routeId}`);
   channel
     .join()

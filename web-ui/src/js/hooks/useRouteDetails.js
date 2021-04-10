@@ -6,6 +6,7 @@ import { useHistory, useParams } from 'react-router';
 import { isFilterMetric, toggleIsMetric } from '../data/filters';
 import { getCurrentUserId, getSessionToken } from '../data/login';
 import { deleteRoute, fetchRoute, getRoute } from '../data/routes';
+import { useRequireAuth } from '../hooks/useRequireAuth';
 
 export const useRouteDetails = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,8 @@ export const useRouteDetails = () => {
       }),
     [dispatch, id, token]
   );
+
+  useRequireAuth();
 
   return {
     route,
