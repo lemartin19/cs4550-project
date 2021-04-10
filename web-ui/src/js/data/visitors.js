@@ -25,9 +25,9 @@ export const joinVisitorChannel = (dispatch, routeId, socket) => {
       })
     );
 
-  channel.on('add-visitor', (visitors) =>
-    dispatch({ type: ADD_VISITOR, paylod: visitors })
-  );
+  channel.on('visitor-update', ({ visitors }) => {
+    dispatch({ type: ADD_VISITOR, payload: visitors });
+  });
   return channel;
 };
 

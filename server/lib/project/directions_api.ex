@@ -36,7 +36,6 @@ defmodule Project.DirectionsApi do
       |> (fn resp -> resp.body end).()
       |> Jason.decode!()
 
-    # IO.inspect(response)
     response["routes"]
   end
 end

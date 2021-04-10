@@ -22,12 +22,10 @@ defmodule ProjectWeb.VisitorChannel do
       Repo.get_by(Visitor, user_id: current_user.id)
       |> add_visitor(current_user.id, route_id)
 
-    IO.inspect(result)
-
     case result do
       {:ok, %Visitor{} = _visitor} ->
         visitors = get_visitors(route_id)
-        broadcast!(socket, "visit:" <> route_id, %{visitors: visitors})
+        broadcast!(socket, "visitor-update", %{visitors: visitors})
         {:noreply, socket}
 
       {:error, %Ecto.Changeset{} = _changeset} ->
