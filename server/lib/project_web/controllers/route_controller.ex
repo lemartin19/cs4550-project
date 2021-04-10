@@ -38,9 +38,11 @@ defmodule ProjectWeb.RouteController do
 
     case result do
       {:ok, %Route{} = route} ->
+        directions = Jason.decode!(route.points) |> DirectionsApi.fetch_directions()
+
         conn
         |> put_status(:created)
-        |> render("show.json", route: route)
+        |> render("show.json", %{route: route, directions: directions})
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
@@ -61,7 +63,8 @@ defmodule ProjectWeb.RouteController do
 
     case Routes.update_route(route, route_params) do
       {:ok, %Route{} = route} ->
-        render(conn, "show.json", route: route)
+        directions = Jason.decode!(route.points) |> DirectionsApi.fetch_directions()
+        render(conn, "show.json", %{route: route, directions: directions})
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn

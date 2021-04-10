@@ -13,7 +13,10 @@ export const useUndoMarker = ({ undoMarkerButton }) => {
   useEffect(() => {
     if (undoMarkerButton) {
       undoMarkerButton.addEventListener('click', () =>
-        setMarkers(points, token).then(dispatch)
+        setMarkers(
+          points.filter((val, idx) => idx !== points.length - 1),
+          token
+        ).then(dispatch)
       );
     }
   }, [points, token, undoMarkerButton]);

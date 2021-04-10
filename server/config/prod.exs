@@ -1,5 +1,14 @@
 use Mix.Config
 
+# Configure your database
+config :project, Project.Repo,
+  username: "project",
+  password: "Bioph7thkuz7Nei3",
+  database: "project_prod",
+  hostname: "localhost",
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.
@@ -10,10 +19,10 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :project, ProjectWeb.Endpoint,
-  url: [host: "project-api.seablue.site", port: 443],
+  check_origin: ["project.seablue.site"],
+  url: [host: "project-api.seablue.site", port: 5643],
   https: [
-    port: 443,
-    cipher_suite: :strong,
+    port: 5643,
     certfile: Path.expand("/etc/letsencrypt/live/project.seablue.site/fullchain.pem", __DIR__),
     keyfile: Path.expand("/etc/letsencrypt/live/project.seablue.site/privkey.pem", __DIR__)
   ],
