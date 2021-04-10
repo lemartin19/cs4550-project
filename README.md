@@ -36,6 +36,7 @@ Additional goals as time allows:
 - [ ] Make routes public or private.
 - [ ] Add comments for specific segments on routes.
 - [ ] Allow bicycle routes.
+- [ ] Save directions result in a large schema string. 
 
 # Attributions
 
