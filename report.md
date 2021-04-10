@@ -81,6 +81,7 @@ Elixir with the HTTPS config information (lots of handshake errors
 that gave absolutely no information). Had to remake the LetsEncrypt 
 files a couple times in order to get it right for both nginx and 
 Elixir at the same time.  
+  
 Also challenging to figure out how/where to fetch and store the 
 directions results. Ended up currently just refetching the directions 
 for every time they are needed but this is not a scalable solution. 
